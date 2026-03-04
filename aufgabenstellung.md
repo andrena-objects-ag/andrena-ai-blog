@@ -170,6 +170,8 @@ Die ersten priorisierten Schnittstellen aus dem Migrationsplan werden nach `back
    - Führe vorhandene Backend-Tests aus.
    - Bewerte die Codequalität im Java Backend (Lesbarkeit, Struktur, offensichtliche Duplikation).
    - Bitte Claude um eine kurze Selbst-Review mit Fokus auf Code Qualität und Security Risiken.
+      - Lasse kleiner Mängel direkt beheben.
+      - Größere Mängel (falls vorhanden) sollen im Migrationsplan aufgenommen werden.
 
 ### Akzeptanzkriterien
 
