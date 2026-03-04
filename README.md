@@ -42,15 +42,16 @@ npm --prefix=frontend start
 
 The Angular dev server starts at `http://localhost:4200`.
 
-### Backend (Spring Boot)
+### Backend
 
 ```shell
-mvn -f backend_java/pom.xml spring-boot:run
+uv sync --directory backend
+uv run --directory backend python manage.py migrate
+uv run --directory backend python manage.py runserver
 ```
 
-The Spring Boot server starts at `http://localhost:8000`.
+The Django server starts at `http://localhost:8000`.
 
-Note: The original Django implementation is still available in `backend/` as a reference, but the active backend for local development and API contract tests is `backend_java/`.
 
 ### Test Login
 
