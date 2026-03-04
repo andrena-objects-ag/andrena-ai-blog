@@ -79,7 +79,7 @@ Vor der Migration Test-Infrastruktur analysieren und eine (minimale) zusätzlich
 
 1. **Test-Infrastruktur erfassen:**
    - Claude fragen:
-     > `Welche Testarten existieren hier (Backend-Tests, Angular-Tests, API-Contract-Tests)? Welche Lücken siehst du für eine Home-Page-Migration?`
+     > `Welche Testarten existieren hier (Backend-Tests, Angular-Tests, API-Contract-Tests)? Welche Lücken siehst du für eine Backend-Migration?`
 
 2. **Mindestens einen neuen Test erstellen:**
    - Lasse einen zusätzlichen Test erstellen, der späteren Umbau absichert (z. B. die Anzeige des Profilbilds mit einem Test absichern).
