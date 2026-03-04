@@ -151,14 +151,15 @@ Die ersten priorisierten Schnittstellen aus dem Migrationsplan werden nach `back
 
 ### Schritte
 
-1. **Plan bestätigen und Scope begrenzen:**
+1. **Implementierung der ersten Schnittstellen:**
    - Begrenze den Scope, indem du nur die ersten Schnittstellen aus dem Plan freigibst:
      > `Implementiere Phase 0 und Phase 1 von @migration-plan.md. Aktualisiere deinen Fortschritt in den Check-Boxen im migrations-plan.mde."`
 
-2. **Implementierung der ersten Schnittstellen:**
+2. **Beobachtung und Kontrolle:**
    - Beobachte in der IDE welche Dateien angelegt werden.
    - Achte daruf, das Claude nur die geforderten Schnittstellen umsetzt und nicht zu viel Scope auf einmal angeht.
    - Wurde der Fortschritt in `migration-plan.md` dokumentiert?
+   - Wurde die README entsprechend ergänzt?
 
 3. **Funktionale Verifikation:**
    - Starte das Java-Backend und prüfe die neuen Schnittstellen.
@@ -168,14 +169,13 @@ Die ersten priorisierten Schnittstellen aus dem Migrationsplan werden nach `back
 4. **Qualitätsprüfung:**
    - Führe vorhandene Backend-Tests aus.
    - Bewerte die Codequalität im Java Backend (Lesbarkeit, Struktur, offensichtliche Duplikation).
-   - Bitte Claude um eine kurze Selbst-Review mit Fokus auf Risiken und offene Punkte.
+   - Bitte Claude um eine kurze Selbst-Review mit Fokus auf Code Qualität und Security Risiken.
 
 ### Akzeptanzkriterien
 
 1. Die ersten geplanten Schnittstellen sind in `backend_java` implementiert.
 2. Funktionale Verifikation (manuell + Playwright-API-Tests) ist durchgeführt.
 3. Die Qualität wurde aktiv geprüft (Tests + Code-Review der Migrationsergebnisse).
-4. Ergebnisse, offene Risiken und nächste Schritte sind dokumentiert.
 
 ---
 
@@ -190,7 +190,7 @@ Erkenntnisse und Bug-Fixes aus der Java-Migration dokumentieren, bevor der Konte
 ### Schritte
 
 1. **Claude befragen, was es repariert hat:**
-   - Noch vor `/clear` fragen:
+   - Frage Claude:
      > `Fasse hier im Chat zusammen, welche Probleme oder Bugs wir bei der Migration der ersten vier Schnittstellen hatten und wie du sie gelöst hast. Unterscheide zwischen allgemeinen Konventionen für CLAUDE.md und aufgabenspezifischen Fallstricken für docs/.`
 
 2. **Feedback zur Qualität und zum Vorgehen geben:**
