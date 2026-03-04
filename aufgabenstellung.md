@@ -127,9 +127,12 @@ Einen klaren, schrittweisen Migrationsplan für das Python/Django-Backend nach J
    - Prüfe: Sind die Schritte klein genug? Sind API-Kompatibilität, Datenübernahme und Teststrategie klar?
    - Stelle Rückfragen oder bitte um Anpassungen:
      > `Wie stellst du sicher, dass das Java-Backend API-seitig kompatibel bleibt und die Profilbilder korrekt angezeigt werden?`
+     > `Empfiehlst du mir maven oder gradle für das Java-Backend?`
 
 5. **Plan stehen lassen – noch nicht genehmigen:**
    - Wenn der Plan inhaltlich steht, genehmige ihn noch nicht. Die Umsetzung folgt in Übung 4.
+   - Verlasse den Planning Mode mit `Esc`.
+   - Committe alle offenen Änderungen oder lass Claude die Commits erstellen.
 
 
 ### Akzeptanzkriterien
@@ -149,9 +152,8 @@ Die ersten priorisierten Schnittstellen aus dem Migrationsplan werden nach `back
 ### Schritte
 
 1. **Plan bestätigen und Scope begrenzen:**
-   - Begrenze den Scope, indem du nach den ersten zwei Steps eine User-Abfrage einbaust, z.B.:
-     > `Füge nach Step zwei (Profiles) eine User-Abfrage ein: "Möchtest du mit der Migration fortfahren?"`
-   - Bestätige jetzt den Plan.
+   - Begrenze den Scope, indem du nur die ersten Schnittstellen aus dem Plan freigibst:
+     > `Implementiere Phase 0 und Phase 1 von @migration-plan.md. Aktualisiere deinen Fortschritt in den Check-Boxen im migrations-plan.mde."`
 
 2. **Implementierung der ersten Schnittstellen:**
    - Beobachte in der IDE welche Dateien angelegt werden.
