@@ -26,7 +26,7 @@ Claude Code im kleinen Full-Stack-Repo initialisieren, Architektur erfassen und 
 2. **Architektur mit Claude klären:**
    - Frage nach Backend-Struktur (Django + DRF) und Frontend-Struktur (Angular).
    - Beispiel:
-     > `Beschreibe mir die wichtigsten Backend-Module, API-Endpunkte und die Frontend-Routen für die Home-Seite.`
+     > `Beschreibe mir die wichtigsten Backend-Module, API-Endpunkte und die Frontend-Architektur.`
 
 3. **App lokal starten lassen:**
    - Backend starten (`uv` + Django), z. B.:
