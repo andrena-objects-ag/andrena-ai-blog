@@ -589,3 +589,10 @@ Ein visuelles Dashboard zur Analyse der lokalen Claude Code Session-History.
 
 - [Claude Code History Viewer](https://github.com/jhlee0409/claude-code-history-viewer) — Visuelles Dashboard für Session-History
 - [Claude Code Templates — Analytics](https://github.com/davila7/claude-code-templates?tab=readme-ov-file#-claude-code-analytics) — Analyse-Skripte und Templates
+
+
+# Wie aktuell bleiben?
+
+Claude Code wird sehr schnell weiterentwickelt. 
+- Es lohnt sich, regelmäßig die [Release Notes](https://github.com/anthropics/claude-code/releases) zu lesen.
+- Oder Best Practices zu verfolgen: [Claude Code Best Practices](https://github.com/shanraisshan/claude-code-best-practice)
