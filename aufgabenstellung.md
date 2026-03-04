@@ -112,7 +112,7 @@ Einen klaren, schrittweisen Migrationsplan für das Python/Django-Backend nach J
      ```
 
 2. **Planning Mode aktivieren:**
-   - Wechsel mit `/model`auf Opus 4.6. Grunsätzlich sollten Pläne immer mit dem stärksten Modell erstellt werden, da LLLMs darin bisher noch nicht gut sind.
+   - Wechsel mit `/model`auf Opus 4.6. Grunsätzlich sollten Pläne immer mit dem stärksten Modell erstellt werden, da LLMs darin bisher noch nicht gut sind.
    - Drücke im Chat `Shift+Tab` zweimal, um den Planning Mode zu aktivieren.
    - Alternativ: `/plan`
 
