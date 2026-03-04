@@ -35,7 +35,11 @@ Claude Code im kleinen Full-Stack-Repo initialisieren, Architektur erfassen und 
      uv run --directory backend python manage.py migrate
      uv run --directory backend python manage.py runserver
      ```
-   - Frontend starten (`npm --prefix=frontend start`).
+   - Frontend starten:
+   ```shell
+   npm --prefix=frontend install
+   npm --prefix=frontend start
+   ```
    - Prüfen:
      - `http://localhost:8000/api/tags`
      - `http://localhost:4200/#/`
