@@ -224,7 +224,10 @@ Erkenntnisse und Bug-Fixes aus der Java-Migration dokumentieren, bevor der Konte
 
 ## Übung 6: Skill erstellen
 
-Wiederkehrende Aufgaben eignen sich hervorragend als Skills. Du musst dir dann nicht jedes Mal den Standard-Prompt überlegen – Claude folgt automatisch einem definierten Workflow. Normalerweise würden wir hier jetzt einen Skill erstellen, der den Workflow abbildet um einzelne Schnittstellen zu migrieren. Für alle weiteren Schnittstelle, die migriert werden, würde dieser Skill von Claude Code geladen und der dort beschriebenen Worklfow gefolt.
+Wiederkehrende Aufgaben eignen sich hervorragend als Skills. Du musst dir dann nicht jedes Mal den Standard-Prompt überlegen – Claude folgt automatisch einem definierten Workflow. 
+
+
+Normalerweise würden wir hier jetzt einen Skill erstellen, der den Workflow abbildet um einzelne Schnittstellen zu migrieren. Für alle weiteren Schnittstelle, die migriert werden, würde dieser Skill von Claude Code geladen und der dort beschriebenen Worklfow gefolt.
 In unserem Beispielrepo (sehr klein) hätte der Schnittstellen-Migrations-Skill keinen Mehwert über den bereits angelegt Plan. Deshalb erstellen wir uns nun einen Meta-Skill, der das Feedback (Copounding Engineering) automatisiert.
 
 ###  `/learn`-Skill erstellen
@@ -354,10 +357,17 @@ Lessons Learned aus einer Session systematisch im Repository sichern.
    ```
 
 3. **Skill testen:**
-   - Beispielaufruf:
+   - Falls dein neuer Skill nicht angezeigt wird, ist ein Neustart von Claude Code erforderlich.
+   - Rufe den Skill auf:
      ```
-     /learn 
+     /learn
      ```
+   - Beobachte: Folgt Claude dem definierten Workflow? Fragt er vor der Implementierung nach Bestätigung?
+
+4. **Community-Skills erkunden (optional):**
+   - Schau dir weitere fertige Skills und Commands an: [https://www.aitmpl.com/claude-code](https://www.aitmpl.com/claude-code)
+   - Skills sind gespeicherte Prompts mit Metadaten – wenn du einen Prompt öfter schreibst, lohnt sich ein Skill.
+   - **Warnung**: Reviewe fremde Skills ausführlich, bevor du sie verwendest. Mit Skills kann die Ausführung von Code ermöglicht werden, die mit den Rechten der Claude Instanz ausgeführt werden. Siehe auch [diesen Artikel von Snyk.io über bösartige Skills](https://snyk.io/de/blog/toxicskills-malicious-ai-agent-skills-clawhub/)
 
 #### Akzeptanzkriterien
 
