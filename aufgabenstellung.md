@@ -118,19 +118,19 @@ Einen klaren, schrittweisen Migrationsplan für das Python/Django-Backend nach J
 
 3. **Migrationsziel formulieren:**
    - Beschreibe das Ziel klar und konkret:
-     > `Ich möchte das bestehende Python-Backend nach Java Spring Boot in den Ordner backend_java migrieren. Bitte plane die Migration so, dass Port und Testdaten gleich bleiben, das README aktualisiert wird und die Verifikation über die Playwright-API-Tests aus dem README erfolgt. Erstelle einen Plan indem eine Schnittstelle nach der anderen umgezogen wird.`
+     > `Ich möchte das bestehende Python-Backend nach Java Spring Boot in den Ordner backend_java migrieren. Bitte plane die Migration so, dass Port und Testdaten gleich bleiben, das README aktualisiert wird und die Verifikation über die Playwright-API-Tests aus dem README erfolgt. Erstelle einen Plan im Repository migrations-plan.md indem eine Schnittstelle nach der anderen umgezogen wird.`
 
 4. **Plan gemeinsam besprechen:**
    - Claude wird einen Schritt-für-Schritt-Plan vorschlagen.
-   - Sage Claude er soll den Plan als `migration-plan.md`im Projektverzeichnis speichern.
+   - Sage Claude er soll den Plan als `migration-plan.md`im Projektverzeichnis speichern, falls noch nicht geschehen.
    - Lass im Plan Check-Boxen einfügen, damit stets der aktuelle Status der Migration erkennbar ist.
    - Prüfe: Sind die Schritte klein genug? Sind API-Kompatibilität, Datenübernahme und Teststrategie klar?
    - Stelle Rückfragen oder bitte um Anpassungen:
      > `Wie stellst du sicher, dass das Java-Backend API-seitig kompatibel bleibt und die Profilbilder korrekt angezeigt werden?`
 
 5. **Plan stehen lassen – noch nicht genehmigen:**
-   - Wenn der Plan inhaltlich steht, stelle sicher, dass er im Repository persistiert wurde, z. B. als `migration-plan.md`, genehmige ihn noch nicht. Die Umsetzung folgt in Übung 4.
-   - Verlasse den Plan-Mode (`ESC`), lass den Plan als Ergebnis dieser Übung offen stehen.
+   - Wenn der Plan inhaltlich steht, genehmige ihn noch nicht. Die Umsetzung folgt in Übung 4.
+
 
 ### Akzeptanzkriterien
 
@@ -148,25 +148,23 @@ Die ersten priorisierten Schnittstellen aus dem Migrationsplan werden nach `back
 
 ### Schritte
 
-1. **Commite offene Änderungen:**
-   - Falls noch nicht geschehen, commmite alle offenen Änderungen, oder lass Claude commiten.
-   - Leere den Kontext `/clear`.
+1. **Plan bestätigen und Scope begrenzen:**
+   - Begrenze den Scope, indem du nach den ersten zwei Steps eine User-Abfrage einbaust, z.B.:
+     > `Füge nach Step zwei (Profiles) eine User-Abfrage ein: "Möchtest du mit der Migration fortfahren?"`
+   - Bestätige jetzt den Plan.
 
-2. **Plan bestätigen und Scope begrenzen:**
-   - Bestätige den Plan aus Übung 3, setze einen klaren Fokus, z.B.:
-     > `Setze aus dem Migrationsplan @migration-plan.md nur die ersten zwei Steps um, d.h. User&Auth sowie Profiles. Aktualisiere den Fortschritt im Plan.`
-
-3. **Implementierung der ersten Schnittstellen:**
+2. **Implementierung der ersten Schnittstellen:**
+   - Beobachte in der IDE welche Dateien angelegt werden.
    - Achte daruf, das Claude nur die geforderten Schnittstellen umsetzt und nicht zu viel Scope auf einmal angeht.
    - Achte darauf, dass Port, Testdaten und API-Verhalten kompatibel bleiben.
    - Falls sinnvoll, soll Claude nur die dafür nötigen README-Teile aktualisieren.
 
-4. **Funktionale Verifikation:**
+3. **Funktionale Verifikation:**
    - Starte das Java-Backend und prüfe die vier Schnittstellen.
    - Lasse die zugehörigen Playwright-API-Tests aus dem README laufen.
    
 
-5. **Qualitätsprüfung:**
+4. **Qualitätsprüfung:**
    - Führe vorhandene Backend-Tests aus.
    - Bewerte die Codequalität im Java Backend (Lesbarkeit, Struktur, offensichtliche Duplikation).
    - Bitte Claude um eine kurze Selbst-Review mit Fokus auf Risiken und offene Punkte.
