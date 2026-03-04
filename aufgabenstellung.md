@@ -28,7 +28,7 @@ Claude Code im kleinen Full-Stack-Repo initialisieren, Architektur erfassen und 
    - Beispiel:
      > `Beschreibe mir die wichtigsten Backend-Module, API-Endpunkte und die Frontend-Architektur.`
 
-3. **App lokal starten lassen:**
+3. **App lokal starten:**
    - Backend starten (`uv` + Django), z. B.:
      ```bash
      uv sync --directory backend
@@ -43,6 +43,10 @@ Claude Code im kleinen Full-Stack-Repo initialisieren, Architektur erfassen und 
    - Prüfen:
      - `http://localhost:8000/api/tags`
      - `http://localhost:4200/#/`
+
+   - Im Frontend einloggen und Features erkunden mit:
+     - Email: `test@andrena.de`
+     - Password: `test`
 
 4. **Baseline-Tests laufen lassen:**
    - Backend-Tests starten:
