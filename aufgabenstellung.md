@@ -111,7 +111,7 @@ Einen klaren, schrittweisen Migrationsplan für das Python/Django-Backend nach J
      /clear
      ```
 
-2. **Planning Mode aktivieren:**
+2. **Planning Mode aktivieren mit Opus 4.6:**
    - Wechsel mit `/model`auf Opus 4.6. Grunsätzlich sollten Pläne immer mit dem stärksten Modell erstellt werden, da LLMs darin bisher noch nicht gut sind.
    - Drücke im Chat `Shift+Tab` zweimal, um den Planning Mode zu aktivieren.
    - Alternativ: `/plan`
@@ -145,33 +145,36 @@ Jetzt wird ein begrenzter, gut reviewbarer Teil aus dem Plan aus Übung 3 umgese
 
 ### Ziel
 
-Die ersten vier priorisierten Schnittstellen aus dem Migrationsplan nach `backend_java` umsetzen und das Ergebnis auf Funktionalität und Qualität prüfen.
+Die ersten priorisierten Schnittstellen aus dem Migrationsplan werden nach `backend_java` migriert und das Ergebnis auf Funktionalität und Qualität geprüft.
 
 ### Schritte
 
-1. **Plan bestätigen und Scope begrenzen:**
-   - Bestätige den Plan aus Übung 3.
-   - Setze einen klaren Fokus:
-     > `Setze nur die ersten vier Schnittstellen aus dem Plan um.`
+1. **Commite offene Änderungen:**
+   - Falls noch nicht geschehen, commmite alle offenen Änderungen, oder lass Claude commiten.
 
-2. **Implementierung der ersten vier Schnittstellen:**
-   - Claude soll nur die ersten vier geplanten API-Schnittstellen migrieren.
+2. **Plan bestätigen und Scope begrenzen:**
+   - Bestätige den Plan aus Übung 3.
+   - Setze einen klaren Fokus, z.B.:
+     > `Setze aus dem Plan nur die ersten zwei Steps um, d.h. User&Auth sowie Profiles.`
+
+3. **Implementierung der ersten Schnittstellen:**
+   - Achte daruf, das Claude nur die geforderten Schnittstellen umsetzt und nicht zu viel Scope auf einmal angeht.
    - Achte darauf, dass Port, Testdaten und API-Verhalten kompatibel bleiben.
    - Falls sinnvoll, soll Claude nur die dafür nötigen README-Teile aktualisieren.
 
-3. **Funktionale Verifikation:**
+4. **Funktionale Verifikation:**
    - Starte das Java-Backend und prüfe die vier Schnittstellen.
    - Lasse die zugehörigen Playwright-API-Tests aus dem README laufen.
    
 
-4. **Qualitätsprüfung:**
+5. **Qualitätsprüfung:**
    - Führe vorhandene Backend-Tests aus.
    - Bewerte die Codequalität im Java Backend (Lesbarkeit, Struktur, offensichtliche Duplikation).
    - Bitte Claude um eine kurze Selbst-Review mit Fokus auf Risiken und offene Punkte.
 
 ### Akzeptanzkriterien
 
-1. Die ersten vier geplanten Schnittstellen sind in `backend_java` implementiert.
+1. Die ersten geplanten Schnittstellen sind in `backend_java` implementiert.
 2. Funktionale Verifikation (manuell + Playwright-API-Tests) ist durchgeführt.
 3. Die Qualität wurde aktiv geprüft (Tests + Code-Review der Migrationsergebnisse).
 4. Ergebnisse, offene Risiken und nächste Schritte sind dokumentiert.
