@@ -1,26 +1,8 @@
-# Aufgabe 1: Claude autonom eine Migration mittlerer Komplexität im kleinen Full-Stack-Repo durchführen
+# Aufgabe 1: Claude Code autonom eine Migration durchführen lassen
 
-## Ziel
+## Gesamtziel
 
-Du führst eine inkrementelle Migration im Repository `andrena-ai-blog-github` durch. Statt eines großen Strangler-Fig-Umbaus im `termini`-Projekt setzt du denselben Lernpfad in kleinerem Scope um:
-
-- Bestehendes Verhalten bleibt stabil.
-- Ein neuer API-Slice wird parallel eingeführt.
-- Das Frontend konsumiert den neuen Slice über eine neue Route.
-- Tests, Planung, Dokumentation und Wiederverwendbarkeit (Skill/Hooks) bleiben Teil der Übung.
-
-**Hinweis:** Diese Aufgabe wird komplett mit diesem Repository durchgeführt: `https://code.andrena.de/ki-migrations-aufgaben/andrena-ai-blog`
-
-## Lernziele
-
-1. Neue Codebasis mit `/init` schnell strukturieren und produktiv mit `CLAUDE.md` arbeiten.
-2. Test-Infrastruktur als Sicherheitsnetz vor einer Migration nutzen.
-3. Planning Mode für mittelkomplexe Änderungen verwenden.
-4. Inkrementell migrieren: Altpfad bleibt, neuer Pfad kommt parallel dazu.
-5. Backend- und Frontend-Änderungen gemeinsam validieren (manuell + automatisiert).
-6. Erkenntnisse im Repo dokumentieren statt nur im Chat-Kontext zu behalten.
-7. Wiederkehrende Arbeit als Skill standardisieren.
-8. Optional: Guardrails über Hooks und Parallelisierung über Subagents/Worktrees anwenden.
+Das bestehende Projekt schrittweise migrieren: primär das Backend von Python/Django nach Java (Spring Boot). Optional kann zusätzlich das Frontend von Angular nach React migriert werden.
 
 ---
 
@@ -32,20 +14,21 @@ Claude Code im kleinen Full-Stack-Repo initialisieren, Architektur erfassen und 
 
 ### Schritte
 
-1. **Repository vorbereiten:**
-   - Wechsle in das Projektverzeichnis `andrena-ai-blog-github`.
-   - Lege einen neuen Branch für die Übung an.
+1. **Claude initialisieren:**
+   - Navigiere im Terminal in das Projektverzeichnis und starte Claude Code:
+     ```bash
+     claude
+     ```
+   - Führe im Chat `/init` aus. Claude analysiert die Codebasis und erstellt `CLAUDE.md`.
+   - Tipp: Nutze `Ctrl + o`, um zwischen Default-Ansicht und Detailansicht zu wechseln.
+   - Öffne die erzeugte `CLAUDE.md` und bereinige redundante Tooling-Infos (z. B. Build-/Formatierungsdetails, die bereits aus Konfigurationsdateien ableitbar sind).
 
-2. **Claude initialisieren:**
-   - Starte Claude Code und führe `/init` aus.
-   - Prüfe die erzeugte `CLAUDE.md` und bereinige redundante Tooling-Infos.
-
-3. **Architektur mit Claude klären:**
+2. **Architektur mit Claude klären:**
    - Frage nach Backend-Struktur (Django + DRF) und Frontend-Struktur (Angular).
    - Beispiel:
      > `Beschreibe mir die wichtigsten Backend-Module, API-Endpunkte und die Frontend-Routen für die Home-Seite.`
 
-4. **App lokal starten lassen:**
+3. **App lokal starten lassen:**
    - Backend starten (`uv` + Django), z. B.:
      ```bash
      uv sync --directory backend
@@ -57,7 +40,7 @@ Claude Code im kleinen Full-Stack-Repo initialisieren, Architektur erfassen und 
      - `http://localhost:8000/api/tags`
      - `http://localhost:4200/#/`
 
-5. **Baseline-Tests laufen lassen:**
+4. **Baseline-Tests laufen lassen:**
    - Backend-Tests starten:
      ```bash
      uv run --directory backend python manage.py test
@@ -67,7 +50,7 @@ Claude Code im kleinen Full-Stack-Repo initialisieren, Architektur erfassen und 
      npm --prefix=frontend run test:api
      ```
 
-6. **Kontext leeren:**
+5. **Kontext leeren:**
    - `/context` prüfen, danach `/clear`.
 
 ### Akzeptanzkriterien
@@ -90,132 +73,136 @@ Vor der Migration eine minimale zusätzliche Absicherung schaffen.
    - Claude fragen:
      > `Welche Testarten existieren hier (Backend-Tests, Angular-Tests, API-Contract-Tests)? Welche Lücken siehst du für eine Home-Page-Migration?`
 
-2. **Mindestens einen neuen Test vorziehen:**
-   - Lasse einen zusätzlichen Test erstellen, der späteren Umbau absichert (z. B. Response-Shape eines Home-Feeds oder Tag-Reihenfolge).
+2. **Mindestens einen neuen Test erstellen:**
+   - Lasse einen zusätzlichen Test erstellen, der späteren Umbau absichert (z. B. die Anzeige des Profilbilds mit einem Test absichern).
    - Test muss grün sein.
 
-3. **Kurz reviewen:**
-   - Ist der Test stabil (keine fragilen Zufallsannahmen, keine Sleep-Abhängigkeiten)?
+
 
 ### Akzeptanzkriterien
 
+- Bestehende Test-Infrastruktur ist verstanden.
 - Mindestens ein neuer sinnvoller Test wurde ergänzt und läuft grün.
-- Testzweck ist klar dokumentiert.
+
 
 ---
 
-## Übung 3: Migrations-Plan im Planning Mode erstellen
+## Übung 3: Migrations-Plan erstellen (Planning Mode)
+
+Für komplexe Aufgaben bietet Planning Mode eine strukturierte Zusammenarbeit: Claude erstellt einen detaillierten Plan, den du reviewen und anpassen kannst, bevor Code geschrieben wird.
 
 ### Ziel
 
-Eine konkrete, reviewbare Planung erstellen, bevor Code geschrieben wird.
-
-### Migrationsziel für diese Aufgabe
-
-Die bestehende Home-Implementierung bleibt unverändert unter `/#/`.
-Zusätzlich wird ein neuer vertikaler Slice eingeführt:
-
-- Neuer Backend-Endpunkt: `GET /api/home`
-- Neue Frontend-Route: `/#/home-v2`
-- `home-v2` soll Artikel + Tags in **einem** API-Call laden
-- Bestehende Endpunkte (`/api/articles`, `/api/articles/feed`, `/api/tags`) bleiben kompatibel
+Einen klaren, schrittweisen Migrationsplan für das Python/Django-Backend nach Java Spring Boot in `backend_java` erarbeiten.
 
 ### Schritte
 
 1. **Kontext leeren:**
-   - `/clear`
-
-2. **Planning Mode aktivieren:**
-   - `Shift+Tab` zweimal oder `/plan`
-
-3. **Plan-Prompt geben:**
-   - Beispiel:
-     > `Plane die Migration für einen neuen Home-Slice. Bestehende Route / bleibt wie sie ist. Implementiere zusätzlich GET /api/home (liefert articles, articlesCount, tags) und die Angular-Route /home-v2, die diese Daten in einem Request lädt. Nenne konkrete Dateien, Tests und Reihenfolge.`
-
-4. **Plan reviewen:**
-   - Prüfen, ob enthalten sind:
-     1. Dateiänderungen in Django und Angular
-     2. Teststrategie (Backend + Frontend/API)
-     3. Rückfallstrategie bei Fehlern
-
-5. **Plan noch nicht ausführen:**
-   - Plan stehen lassen, noch nicht bestätigen.
-
-### Akzeptanzkriterien
-
-- Ein konkreter Plan mit Dateien, Schritten und Tests liegt vor.
-- Es wurde noch kein Implementierungscode geschrieben.
-
----
-
-## Übung 4: Migration umsetzen und End-to-End validieren
-
-### Ziel
-
-Neuen `home-v2`-Slice implementieren, Altverhalten intakt lassen, Tests grün halten.
-
-### Schritte
-
-1. **Plan bestätigen und umsetzen lassen:**
-   - Plan freigeben.
-   - Falls nötig: `Setze den Plan jetzt um.`
-
-2. **Auf folgende Punkte achten:**
-   - Neuer Endpunkt `GET /api/home` existiert.
-   - Route `/#/home-v2` existiert.
-   - Bestehende Home-Route `/#/` funktioniert unverändert.
-   - Datenmodell für `home-v2` ist klar typisiert.
-
-3. **Manuelle API-Prüfung:**
-   ```bash
-   curl -s "http://localhost:8000/api/home?limit=10&offset=0" | jq .
-   ```
-
-4. **Manuelle UI-Prüfung:**
-   - `http://localhost:4200/#/` (Altpfad)
-   - `http://localhost:4200/#/home-v2` (Neupfad)
-   - Artikelliste und Tags fachlich vergleichen.
-
-5. **Regressionstests ausführen:**
-   - Backend-Tests
-   - Frontend-Tests (falls im Scope)
-   - API-Contract-Tests:
-     ```bash
-     npm --prefix=frontend run test:api
+   - Starte mit einem frischen Kontext für die Planungsphase:
+     ```
+     /clear
      ```
 
+2. **Planning Mode aktivieren:**
+   - Drücke im Chat `Shift+Tab` zweimal, um den Planning Mode zu aktivieren.
+   - Alternativ: `/plan`
+
+3. **Migrationsziel formulieren:**
+   - Beschreibe das Ziel klar und konkret:
+     > `Ich möchte das bestehende Python-Backend nach Java Spring Boot in den Ordner backend_java migrieren. Bitte plane die Migration so, dass Port und Testdaten gleich bleiben, das README aktualisiert wird und die Verifikation über die Playwright-API-Tests aus dem README erfolgt. Erstelle einen Plan indem eine Schnittstelle nach der anderen umgezogen wird.`
+
+4. **Plan gemeinsam besprechen:**
+   - Claude wird einen Schritt-für-Schritt-Plan vorschlagen.
+   - Prüfe: Sind die Schritte klein genug? Sind API-Kompatibilität, Datenübernahme und Teststrategie klar?
+   - Stelle Rückfragen oder bitte um Anpassungen:
+     > `Wie stellst du sicher, dass das Java-Backend API-seitig kompatibel bleibt und die Profilbilder korrekt angezeigt werden?`
+
+5. **Plan stehen lassen – noch nicht genehmigen:**
+   - Wenn der Plan inhaltlich steht, genehmige ihn noch nicht. Die Umsetzung folgt in Übung 4.
+   - Lass den Plan als Ergebnis dieser Übung offen stehen.
+
 ### Akzeptanzkriterien
 
-1. `GET /api/home` antwortet mit HTTP 200 und den erwarteten Feldern.
-2. `/#/home-v2` funktioniert und nutzt den neuen Endpunkt.
-3. `/#/` bleibt funktional unverändert.
-4. Relevante Tests sind grün.
+- Ein dokumentierter Plan liegt vor, es wurde noch kein Code geschrieben.
 
 ---
 
-## Übung 5: Lessons Learned im Repo sichern
+## Übung 4: Ersten Teil des Migrationsplans umsetzen und validieren
+
+Jetzt wird ein begrenzter, gut reviewbarer Teil aus dem Plan aus Übung 3 umgesetzt.
 
 ### Ziel
 
-Session-Wissen dauerhaft dokumentieren (statt im Chat-Kontext zu verlieren).
+Die ersten vier priorisierten Schnittstellen aus dem Migrationsplan nach `backend_java` umsetzen und das Ergebnis auf Funktionalität und Qualität prüfen.
 
 ### Schritte
 
-1. **Claude vor `/clear` zusammenfassen lassen:**
-   > `Fasse Bugs, Fixes und Entscheidungen aus der Home-v2-Migration zusammen. Trenne in allgemeine Konventionen (CLAUDE.md) und aufgabenspezifische Fallstricke (docs-Datei).`
+1. **Plan bestätigen und Scope begrenzen:**
+   - Bestätige den Plan aus Übung 3.
+   - Setze einen klaren Fokus:
+     > `Setze nur die ersten vier Schnittstellen aus dem Plan um.`
 
-2. **Dokumente erzeugen lassen:**
-   - `CLAUDE.md` ergänzen (z. B. API-Design- und Testkonventionen)
-   - `docs/home-v2-migration-pitfalls.md` anlegen
+2. **Implementierung der ersten vier Schnittstellen:**
+   - Claude soll nur die ersten vier geplanten API-Schnittstellen migrieren.
+   - Achte darauf, dass Port, Testdaten und API-Verhalten kompatibel bleiben.
+   - Falls sinnvoll, soll Claude nur die dafür nötigen README-Teile aktualisieren.
 
-3. **Kontext leeren:**
-   - `/clear`
+3. **Funktionale Verifikation:**
+   - Starte das Java-Backend und prüfe die vier Schnittstellen manuell (HTTP-Status, Response-Struktur, relevante Felder).
+   - Lasse die zugehörigen Playwright-API-Tests aus dem README laufen.
+   - Prüfe im Frontend stichprobenartig, ob zentrale Inhalte weiterhin korrekt dargestellt werden (z. B. Artikel, Profilbilder).
+
+4. **Qualitätsprüfung:**
+   - Führe vorhandene Backend-Tests aus.
+   - Vergleiche stichprobenartig alte und neue Implementierung (Lesbarkeit, Struktur, offensichtliche Duplikation).
+   - Bitte Claude um eine kurze Selbst-Review mit Fokus auf Risiken und offene Punkte.
 
 ### Akzeptanzkriterien
 
-- `CLAUDE.md` wurde sinnvoll erweitert.
-- Eine spezifische Pitfall-Doku unter `docs/` existiert.
-- Kontext ist geleert.
+1. Die ersten vier geplanten Schnittstellen sind in `backend_java` implementiert.
+2. Funktionale Verifikation (manuell + Playwright-API-Tests) ist durchgeführt.
+3. Die Qualität wurde aktiv geprüft (Tests + Code-Review der Migrationsergebnisse).
+4. Ergebnisse, offene Risiken und nächste Schritte sind dokumentiert.
+
+---
+
+## Übung 5: Lessons Learned
+
+Noch bevor der Kontext geleert wird, lohnt es sich, das Wissen aus der aktuellen Session festzuhalten: Welche Probleme sind aufgetreten? Was wurde repariert? Welche Konventionen haben sich bewährt?
+
+### Ziel
+
+Erkenntnisse und Bug-Fixes aus der Java-Migration dokumentieren, bevor der Kontext geleert wird, in `CLAUDE.md` (allgemein) oder `docs/` (spezifisch).
+
+### Schritte
+
+1. **Claude befragen, was es repariert hat:**
+   - Noch vor `/clear` in den `/plan`-Modus wechseln und fragen:
+     > `Fasse zusammen, welche Probleme oder Bugs wir bei der Migration der ersten vier Schnittstellen hatten und wie du sie gelöst hast. Unterscheide zwischen allgemeinen Konventionen für CLAUDE.md und aufgabenspezifischen Fallstricken für docs/.`
+
+2. **Feedback zur Qualität und zum Vorgehen geben:**
+   - Wurden deine Qualitätsansprüche erfüllt? Wenn nein, gib gezieltes Feedback.
+   - Wurde sinnvoll und nachvollziehbar gearbeitet (inkl. Test- und Doku-Updates)?
+   - Welche offenen Punkte müssen vor der nächsten Migrationswelle geklärt werden?
+
+3. **Entscheidung: Wohin gehört welche Erkenntnis?**
+   - Allgemein (für künftige Sessions relevant) in `CLAUDE.md`.
+   - Spezifisch (für diese Migration relevant) in eine Datei unter `docs/`, z. B. `docs/java-migration-pitfalls.md`.
+
+4. **Dokumentation anlegen lassen:**
+   - `CLAUDE.md` ergänzen lassen:
+     > `Ergänze CLAUDE.md um die Konventionen, die wir in dieser Teilmigration etabliert haben.`
+   - Fallstrick-Datei anlegen lassen:
+     > `Lege docs/java-migration-pitfalls.md an und dokumentiere darin konkrete Bugs, Fixes und Verifikationshinweise aus der Umsetzung der ersten vier Schnittstellen.`
+
+5. **Kontext leeren:**
+   - Erst jetzt `/clear`.
+
+### Akzeptanzkriterien
+
+- `CLAUDE.md` enthält mindestens eine neue oder geschärfte Konvention aus der Migration.
+- Eine spezifische `docs/`-Datei mit konkreten Fallstricken und Fixes existiert.
+- Der Kontext ist nach der Übung geleert.
 
 ---
 
@@ -552,4 +539,3 @@ Ein visuelles Dashboard zur Analyse der lokalen Claude Code Session-History.
 
 - [Claude Code History Viewer](https://github.com/jhlee0409/claude-code-history-viewer) — Visuelles Dashboard für Session-History
 - [Claude Code Templates — Analytics](https://github.com/davila7/claude-code-templates?tab=readme-ov-file#-claude-code-analytics) — Analyse-Skripte und Templates
-
