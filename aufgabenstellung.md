@@ -129,9 +129,8 @@ Einen klaren, schrittweisen Migrationsplan für das Python/Django-Backend nach J
      > `Wie stellst du sicher, dass das Java-Backend API-seitig kompatibel bleibt und die Profilbilder korrekt angezeigt werden?`
 
 5. **Plan stehen lassen – noch nicht genehmigen:**
-   - Wenn der Plan inhaltlich steht, stelle sicher, dass er im Repository persis
-   genehmige ihn noch nicht. Die Umsetzung folgt in Übung 4.
-   - Lass den Plan als Ergebnis dieser Übung offen stehen.
+   - Wenn der Plan inhaltlich steht, stelle sicher, dass er im Repository persistiert wurde, z. B. als `migration-plan.md`, genehmige ihn noch nicht. Die Umsetzung folgt in Übung 4.
+   - Verlasse den Plan-Mode (`ESC`), lass den Plan als Ergebnis dieser Übung offen stehen.
 
 ### Akzeptanzkriterien
 
@@ -155,7 +154,7 @@ Die ersten priorisierten Schnittstellen aus dem Migrationsplan werden nach `back
 2. **Plan bestätigen und Scope begrenzen:**
    - Bestätige den Plan aus Übung 3.
    - Setze einen klaren Fokus, z.B.:
-     > `Setze aus dem Plan nur die ersten zwei Steps um, d.h. User&Auth sowie Profiles.`
+     > `Setze aus dem Plan nur die ersten zwei Steps um, d.h. User&Auth sowie Profiles. Aktualisiere den Fortschritt im Plan.`
 
 3. **Implementierung der ersten Schnittstellen:**
    - Achte daruf, das Claude nur die geforderten Schnittstellen umsetzt und nicht zu viel Scope auf einmal angeht.
