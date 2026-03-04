@@ -1,4 +1,4 @@
-# Aufgabe 1: Claude Code autonom eine Migration durchführen lassen
+# Claude Code autonom eine Migration durchführen lassen
 
 ## Gesamtziel
 
@@ -354,54 +354,24 @@ Lessons Learned aus einer Session systematisch im Repository sichern.
 
 ## Optional Übung 7: Guardrails mit Hooks
 
+WIP
+
 ### Ziel
 
 Wichtige Regeln technisch absichern (nicht nur als Prompt).
 
 ### Vorschlag
 
-1. **PreToolUse-Hook:** blockiert Änderungen am Legacy-Home-Pfad (`frontend/src/app/pages/home/`), solange die Migration läuft.
-2. **Stop-Hook:** führt einmal pro Turn Tests aus, wenn `.py` oder `.ts` geändert wurden.
+1. **Stop-Hook:** führt einmal pro Turn Tests aus, wenn bestimmte Dateien geändert wurden.
+   - welche test? archunit-Tests? 
 
 ### Akzeptanzkriterien
 
-- Legacy-Home-Dateien sind durch Hook geschützt.
-- Test-Gate läuft deterministisch und verhindert stilles Brechen.
+- ...
 
 ---
 
-## Optional Übung 8: Parallele Folge-Migration mit Subagents/Worktrees
-
-### Ziel
-
-Paralleles Arbeiten in isolierten Worktrees praktisch anwenden.
-
-### Vorschlag
-
-- Starte zwei Subagents parallel:
-  1. Agent A: zusätzliche Tests für `/api/home`
-  2. Agent B: UI-Polish für `home-v2`
-- Führe Ergebnisse anschließend kontrolliert zusammen.
-
-### Akzeptanzkriterien
-
-- Zwei parallele Streams liefen in getrennten Worktrees.
-- Ergebnisse wurden ohne Konfliktverlust integriert.
-
-
----
-
-# Aufgabe 2: Multi-Agent-Orchestrierung — Paralleles Arbeiten mit Worktrees
-
-## Ziel
-
-Git-Worktrees als Isolationsmechanismus für parallele Agent-Sessions verstehen und anwenden. Erst manuell die Grundlagen erleben, dann mit `claude --worktree` zwei unabhängige Aufgaben gleichzeitig bearbeiten lassen. Diese Übung bereitet auf die automatisierte Subagent-Orchestrierung vor.
-
-**Hinweis:** Diese Aufgabe wird im selben Repository wie Aufgabe 1 durchgeführt: `https://code.andrena.de/ki-migrations-aufgaben/termini`
-
----
-
-## Übung 1: Git-Worktrees manuell anlegen und verstehen (~5 Min.)
+## Übung 8: Git-Worktrees manuell anlegen und verstehen (~5 Min.)
 
 ### Ziel
 
@@ -452,82 +422,59 @@ Verstehen, dass Worktrees kein Agent-Feature sind, sondern ein Git-Grundbaustein
 
 > Git-Worktrees gibt es seit Git 2.5 (2015) und besteht im Wesentlichen aus drei Befehlen: `add`, `list`, `remove`. Das hat erstmal nichts mit KI-Agents zu tun.
 
-### Acceptance Criteria
+### Akzeptanzkriterien
 
 1. Ein Worktree wurde erfolgreich angelegt und wieder entfernt.
 2. Du kannst erklären, was ein Git-Worktree ist und warum er für parallele Agent-Sessions nützlich ist.
 
+
 ---
 
-## Übung 2: Parallele Claude-Sessions mit `--worktree` (~8 Min.)
+## Optional Übung 9: Restliche Controller parallel migrieren (Subagents & Worktrees)
+
+Nach der Teilmigration der ersten vier Schnittstellen kann der restliche Scope parallelisiert werden: Mehrere Subagents arbeiten gleichzeitig in isolierten Worktrees und migrieren jeweils einen Teilbereich.
 
 ### Ziel
 
-Erleben, wie Claude Code den Worktree-Mechanismus nutzt, um zwei unabhängige Aufgaben gleichzeitig in isolierten Umgebungen zu bearbeiten.
+Alle verbleibenden Controller bzw. API-Schnittstellen parallel nach `backend_java` migrieren, Ergebnisse kontrolliert zusammenführen und vollständig validieren.
 
 ### Schritte
 
-1. **Erstes Terminal — Worktree-Session starten:**
+1. **Prompt für parallele Migration formulieren:**
+   - Starte mit frischem Kontext (`/clear`) und gib Claude folgenden Auftrag:
+     > `Migriere alle verbleibenden Controller/Schnittstellen parallel nach backend_java. Starte für jeden Migrationsblock einen eigenen Subagent in einem isolierten Worktree. Verwende den zuvor angelegten Migrations-Plan.`
 
-   ```bash
-   cd termini
-   claude --worktree feature-api-docs
-   ```
+2. **Planungsphase reviewen:**
+   - Claude erstellt einen Parallelisierungsplan mit Arbeitspaketen.
+   - Prüfe, ob die Aufteilung sinnvoll ist und ob Abhängigkeiten zwischen Endpunkten berücksichtigt sind.
+   - Gib erst dann die Freigabe.
 
-   Claude erstellt automatisch `.claude/worktrees/feature-api-docs/` mit einem eigenen Branch `worktree-feature-api-docs` und startet dort eine Session.
+3. **Subagents parallel ausführen lassen:**
+   - Nach Freigabe startet Claude die Subagents in getrennten Worktrees.
+   - Jeder Subagent migriert sein Paket nach `backend_java` und führt die passenden Tests im eigenen Worktree aus.
 
-2. **Ersten Auftrag geben:**
+4. **Ergebnisse prüfen und zusammenführen:**
+   - Reviewe die von den Subagents erzeugten Branches.
+   - Führe die Ergebnisse kontrolliert zusammen.
+   - Bei Konflikten: Claude soll Konflikte analysieren und auflösen.
 
-   > `Erstelle eine Datei docs/api-overview.md, die alle bestehenden REST-Endpunkte unter /api/ dokumentiert. Nutze eine Markdown-Tabelle mit Spalten: HTTP-Methode, Pfad, Beschreibung.`
+5. **Vollständige Verifikation ausführen:**
+   - Starte nach dem Zusammenführen alle relevanten Tests.
+   - Führe die Playwright-API-Tests gemäß `README` aus.
+   - Prüfe stichprobenartig im Frontend die weiterhin korrekte Darstellung (inkl. Profilbilder).
 
-3. **Zweites Terminal öffnen (parallel!) — weitere Worktree-Session:**
+6. **Ergebnisse dokumentieren:**
+   - Lasse Claude eine kurze Zusammenfassung erstellen:
+     - Was wurde parallel migriert?
+     - Welche Risiken sind offen?
+     - Welche nächsten Schritte folgen?
 
-   - Öffne ein **neues** Terminal-Fenster (das erste läuft weiter!) und starte eine zweite Session:
-     ```bash
-     cd termini
-     claude --worktree feature-healthcheck
-     ```
+### Akzeptanzkriterien
 
-4. **Zweiten Auftrag geben:**
-
-   > `Erstelle einen neuen Spring Boot Actuator Health-Endpunkt unter /api/health, der HTTP 200 mit {"status":"UP"} zurückgibt. Schreibe einen passenden Test.`
-
-5. **Beobachten:**
-
-   - Beide Sessions arbeiten gleichzeitig, ohne sich gegenseitig zu blockieren.
-   - Jede Session hat ihren eigenen Branch (`worktree-feature-api-docs`, `worktree-feature-healthcheck`).
-   - Dateien, die in einer Session erstellt werden, sind in der anderen nicht sichtbar.
-   - Wie werden Worktrees in VSCode in Source Control angezeigt?
-
-6. **Sessions beenden:**
-
-   - Beende beide Sessions (Strg+C oder `/exit`).
-   - Claude fragt beim Beenden, ob der Worktree behalten oder gelöscht werden soll.
-   - Wähle **löschen** — die Branches und Worktrees werden aufgeräumt.
-
-7. **Aufräumen prüfen:**
-
-   ```bash
-   git worktree list
-   ```
-
-   → Nur noch der Hauptworktree sollte übrig sein.
-
-### Acceptance Criteria
-
-1. Zwei parallele Claude-Sessions liefen gleichzeitig in getrennten Worktrees.
-2. Beide Agents haben ihre Aufgabe unabhängig voneinander bearbeitet.
-3. Nach dem Beenden sind die Worktrees aufgeräumt.
-
----
-
-## Übung 3: Reflexion und Überleitung (~2 Min.)
-
-### Diskussion im Plenum
-
-- **Was habt ihr beobachtet?** Zwei Agents, zwei Branches, keine Konflikte.
-- **Was fehlte?** Koordination! Niemand hat den Agents gesagt, wie die Ergebnisse zusammengeführt werden. Ihr musstet manuell zwei Terminals öffnen und zwei Prompts formulieren.
-- **Überleitung:** Genau diese Koordination übernimmt in der nächsten Übung ein **Orchestrator-Agent**, der Subagents in Worktrees automatisch startet, ihre Ergebnisse einsammelt und zusammenführt — alles aus einem einzigen Prompt.
+1. Alle verbleibenden Controller/Schnittstellen sind in `backend_java` migriert.
+2. Die parallele Umsetzung lief in getrennten Worktrees ohne gegenseitige Blockade.
+3. Relevante Tests inkl. Playwright-API-Tests sind grün.
+4. Offene Risiken und nächste Schritte sind dokumentiert.
 
 
 ---
@@ -538,58 +485,43 @@ Erleben, wie Claude Code den Worktree-Mechanismus nutzt, um zwei unabhängige Au
 - [Claude Code: Parallele Sessions mit Worktrees](https://code.claude.com/docs/en/common-workflows#run-parallel-claude-code-sessions-with-git-worktrees) — Offizielle Claude Code Dokumentation
 - [Claude Code: Subagents](https://code.claude.com/docs/en/sub-agents) — Parallele Agenten und Multi-Agent-Workflows
 
+# Optional Übung 10: Frontend auf React migrieren
 
----
+Migriere das Angular-Frontend nach React. Nutze dabei die gleichen Prinzipien wie bei der Backend-Migration: Planung, schrittweise Umsetzung, Test-Absicherung und Lessons Learned Dokumentation.
 
-# Aufgabe 3: Claude Code Usage analysieren
+
+# Übung 11: Claude Code Usage analysieren
 
 ## Ziel
 
 Die eigene Claude Code Nutzung reflektieren und analysieren. Dazu werden die eingebauten Analyse-Befehle `/stats` und `/insights` verwendet sowie externe Analyse-Dashboards von den Trainern vorgestellt. Ziel ist es, ein Gefühl für den eigenen Verbrauch, die häufigsten Workflows und Optimierungspotenziale zu entwickeln.
 
+
 ---
 
-## Übung 1: Schnellübersicht mit `/stats`
+## Übung 11.1: Schnellübersicht mit `/stats`
 
-### Ziel
 
-Einen ersten Überblick über die eigene Claude Code Nutzung erhalten — Token-Verbrauch, Anzahl Sessions, häufig verwendete Tools.
-
-### Schritte
-
-1. **Claude Code starten:**
-
-   - Öffne ein Terminal und starte Claude Code:
-     ```bash
-     claude
-     ```
-
-2. **`/stats` aufrufen:**
-
-   - Gib im Chat den Befehl ein:
-     ```
-     /stats
-     ```
-   - Claude zeigt eine kompakte Zusammenfassung deiner bisherigen Nutzung an: Token-Verbrauch, Anzahl der Sessions, genutzte Tools und mehr.
+- Gib im Chat den Befehl ein:
+   ```
+   /stats
+   ```
+- Claude zeigt eine kompakte Zusammenfassung deiner bisherigen Nutzung an: Token-Verbrauch, Anzahl der Sessions, genutzte Tools und mehr.
 
 
 ---
 
-## Übung 2: Detaillierte Analyse mit `/insights`
+## Übung 11.2: Detaillierte Analyse mit `/insights`
 
 ### Ziel
 
 Eine tiefgehende Analyse der eigenen Claude Code Nutzung durchführen. `/insights` analysiert die lokale Session-History und erstellt einen ausführlichen Bericht über Nutzungsmuster, häufige Fehler und Optimierungspotenziale.
 
-### Schritte
-
-1. **`/insights` ausführen:**
-
-   - Gib im Claude Code Chat den Befehl ein:
-     ```
-     /insights
-     ```
-   - **Hinweis:** Dieser Befehl dauert deutlich länger als `/stats`, da Claude die gesamte Session-History analysiert. Plane mehrere Minuten ein.
+- Gib im Claude Code Chat den Befehl ein:
+   ```
+   /insights
+   ```
+- **Hinweis:** Dieser Befehl dauert deutlich länger als `/stats`, da Claude die gesamte Session-History analysiert. Plane mehrere Minuten ein.
 
 2. **Analyse lesen und reflektieren:**
 
@@ -601,7 +533,7 @@ Eine tiefgehende Analyse der eigenen Claude Code Nutzung durchführen. `/insight
      - **Empfehlungen**: Konkrete Vorschläge zur effektiveren Nutzung.
 
 
-## Optional Übung 3: Externe Analyse-Dashboards erkunden
+## Optional Übung 11.3: Externe Analyse-Dashboards erkunden
 
 Falls genügend Zeit übrig ist, oder während `/insights` läuft, lohnt sich ein Blick auf externe Tools, die Claude Code Session-Daten visuell aufbereiten. Claude Code speichert alle Sessions lokal als JSONL-Dateien — diese können von externen Tools gelesen und analysiert werden.
 
