@@ -457,7 +457,7 @@ Verstehen, dass Worktrees kein Agent-Feature sind, sondern ein Git-Grundbaustein
 
 ---
 
-## Optional Übung 9: Restliche Controller parallel migrieren (Subagents & Worktrees)
+## Übung 9: Restliches Python Backend parallel migrieren (Subagents & Worktrees)
 
 Nach der Teilmigration der ersten vier Schnittstellen kann der restliche Scope parallelisiert werden: Mehrere Subagents arbeiten gleichzeitig in isolierten Worktrees und migrieren jeweils einen Teilbereich.
 
