@@ -25,7 +25,7 @@ Damit stand ich gleich vor der ersten Hürde: Ich hatte praktisch keine Erfahrun
 
 ## Der Lernkurve erster Teil: Das (kleine) ASE Frontend
 
-Wie wir vorgehen können und mit welchen Tools, das waren daher die Fragen, die unser Migrationsteam (Duc Pham, Florian Ulrich und ich) den KI-Experten stellte. Angefangen haben wir dann damit, das ASE Frontend mit seinen ca. 10.000 lines of code (LOC) in React auf Angular zu übertragen. Verwendet haben wir folgende Tools:
+Wie wir vorgehen können und mit welchen Tools, das waren daher die Fragen, die unser Migrationsteam den KI-Experten stellte. Angefangen haben wir dann damit, das ASE Frontend mit seinen ca. 10.000 lines of code (LOC) in React auf Angular zu übertragen. Verwendet haben wir folgende Tools:
 
 - **Claude Code** (mit Claude 4.5 Sonnet)
 - **OpenAI Codex** (GPT 5)
@@ -41,7 +41,7 @@ Frisch ermutigt, wie wir waren, gingen wir gleich an eine größere Aufgabe.
 
 ## Lernkurve, 2. Teil: Migration STAR von Spring Boot in Quarkus
 
-STAR ist aktuell in Spring Boot, wir wählten Quarkus als Alternative dazu. Bei STAR reden wir über ca. **100.000 LOC**, der Grundsatz mit dem „überlasse den Plan nicht allein der KI" galt hier erst recht, an dieser Stelle hatte Florian Ulrich dankenswerter Weise viel Vorarbeit geleistet und z.B. verschiedene Spikes vorgeschlagen, wie den, mit den Urlaubsdaten zu beginnen.
+STAR ist aktuell in Spring Boot, wir wählten Quarkus als Alternative dazu. Bei STAR reden wir über ca. **100.000 LOC**, der Grundsatz mit dem „überlasse den Plan nicht allein der KI" galt hier erst recht, an dieser Stelle war bereits viel Vorarbeit geleistet und es wurden z.B. verschiedene Spikes vorgeschlagen, wie den, mit den Urlaubsdaten zu beginnen.
 
 Wir haben sehr schnell gesehen, dass die Anlehnung an das klassische Vorgehen -- ich schneide meine Aufgabe in kleine, handelbare Tasks -- auch hier absolut empfehlenswert ist. Denn wir haben verschiedene Dinge gelernt:
 
