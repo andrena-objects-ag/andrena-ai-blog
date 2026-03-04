@@ -112,6 +112,7 @@ Einen klaren, schrittweisen Migrationsplan für das Python/Django-Backend nach J
      ```
 
 2. **Planning Mode aktivieren:**
+   - Wechsel mit `/model`auf Opus 4.6. Grunsätzlich sollten Pläne immer mit dem stärksten Modell erstellt werden, da LLLMs darin bisher noch nicht gut sind.
    - Drücke im Chat `Shift+Tab` zweimal, um den Planning Mode zu aktivieren.
    - Alternativ: `/plan`
 
@@ -121,12 +122,15 @@ Einen klaren, schrittweisen Migrationsplan für das Python/Django-Backend nach J
 
 4. **Plan gemeinsam besprechen:**
    - Claude wird einen Schritt-für-Schritt-Plan vorschlagen.
+   - Sage Claude er soll den Plan als `migration-plan.md`im Projektverzeichnis speichern.
+   - Lass im Plan Check-Boxen einfügen, damit stets der aktuelle Status der Migration erkennbar ist.
    - Prüfe: Sind die Schritte klein genug? Sind API-Kompatibilität, Datenübernahme und Teststrategie klar?
    - Stelle Rückfragen oder bitte um Anpassungen:
      > `Wie stellst du sicher, dass das Java-Backend API-seitig kompatibel bleibt und die Profilbilder korrekt angezeigt werden?`
 
 5. **Plan stehen lassen – noch nicht genehmigen:**
-   - Wenn der Plan inhaltlich steht, genehmige ihn noch nicht. Die Umsetzung folgt in Übung 4.
+   - Wenn der Plan inhaltlich steht, stelle sicher, dass er im Repository persis
+   genehmige ihn noch nicht. Die Umsetzung folgt in Übung 4.
    - Lass den Plan als Ergebnis dieser Übung offen stehen.
 
 ### Akzeptanzkriterien
