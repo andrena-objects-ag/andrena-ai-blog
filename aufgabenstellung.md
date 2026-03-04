@@ -158,12 +158,11 @@ Die ersten priorisierten Schnittstellen aus dem Migrationsplan werden nach `back
 2. **Implementierung der ersten Schnittstellen:**
    - Beobachte in der IDE welche Dateien angelegt werden.
    - Achte daruf, das Claude nur die geforderten Schnittstellen umsetzt und nicht zu viel Scope auf einmal angeht.
-   - Achte darauf, dass Port, Testdaten und API-Verhalten kompatibel bleiben.
-   - Falls sinnvoll, soll Claude nur die dafür nötigen README-Teile aktualisieren.
+   - Wurde der Fortschritt in `migration-plan.md` dokumentiert?
 
 3. **Funktionale Verifikation:**
-   - Starte das Java-Backend und prüfe die vier Schnittstellen.
-   - Lasse die zugehörigen Playwright-API-Tests aus dem README laufen.
+   - Starte das Java-Backend und prüfe die neuen Schnittstellen.
+   - Lasse die zugehörigen Playwright-API-Tests laufen.
    
 
 4. **Qualitätsprüfung:**
