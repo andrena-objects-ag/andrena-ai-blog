@@ -357,15 +357,18 @@ Lessons Learned aus einer Session systematisch im Repository sichern.
    ```
 
 3. **Skill testen:**
-   - Falls dein neuer Skill nicht angezeigt wird, ist ein Neustart von Claude Code erforderlich.
+   - Beende Claude Code `/exit``
+   - Öffne Claude Code und resume die vorherige Sitzung mit `resume`
    - Rufe den Skill auf:
      ```
      /learn
      ```
-   - Beobachte: Folgt Claude dem definierten Workflow? Fragt er vor der Implementierung nach Bestätigung?
+   - Beobachte: Weißt Claude darauf hin, das der Skill nach einem  `/clear` wenig sinnvoll ist und am Ende einer Session verwendet werden soll?
 
 4. **Community-Skills erkunden (optional):**
-   - Schau dir weitere fertige Skills und Commands an: [https://www.aitmpl.com/claude-code](https://www.aitmpl.com/claude-code)
+   - Schau dir weitere fertige Skills und Commands an: 
+     - [https://www.aitmpl.com/claude-code](https://www.aitmpl.com/claude-code)
+     - [https://github.com/Jeffallan/claude-skills/blob/main/SKILLS_GUIDE.md](https://github.com/Jeffallan/claude-skills/blob/main/SKILLS_GUIDE.md)
    - Skills sind gespeicherte Prompts mit Metadaten – wenn du einen Prompt öfter schreibst, lohnt sich ein Skill.
    - **Warnung**: Reviewe fremde Skills ausführlich, bevor du sie verwendest. Mit Skills kann die Ausführung von Code ermöglicht werden, die mit den Rechten der Claude Instanz ausgeführt werden. Siehe auch [diesen Artikel von Snyk.io über bösartige Skills](https://snyk.io/de/blog/toxicskills-malicious-ai-agent-skills-clawhub/)
 
@@ -373,7 +376,6 @@ Lessons Learned aus einer Session systematisch im Repository sichern.
 
 - `.claude/skills/learn/SKILL.md` existiert.
 - `/learn` ist im Chat aufrufbar.
-- Der Skill aktualisiert `CLAUDE.md` und eine passende docs-Datei mit konkreten Lessons Learned.
 
 ---
 
