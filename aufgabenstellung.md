@@ -148,13 +148,13 @@ Die ersten vier priorisierten Schnittstellen aus dem Migrationsplan nach `backen
    - Falls sinnvoll, soll Claude nur die dafür nötigen README-Teile aktualisieren.
 
 3. **Funktionale Verifikation:**
-   - Starte das Java-Backend und prüfe die vier Schnittstellen manuell (HTTP-Status, Response-Struktur, relevante Felder).
+   - Starte das Java-Backend und prüfe die vier Schnittstellen.
    - Lasse die zugehörigen Playwright-API-Tests aus dem README laufen.
-   - Prüfe im Frontend stichprobenartig, ob zentrale Inhalte weiterhin korrekt dargestellt werden (z. B. Artikel, Profilbilder).
+   
 
 4. **Qualitätsprüfung:**
    - Führe vorhandene Backend-Tests aus.
-   - Vergleiche stichprobenartig alte und neue Implementierung (Lesbarkeit, Struktur, offensichtliche Duplikation).
+   - Bewerte die Codequalität im Java Backend (Lesbarkeit, Struktur, offensichtliche Duplikation).
    - Bitte Claude um eine kurze Selbst-Review mit Fokus auf Risiken und offene Punkte.
 
 ### Akzeptanzkriterien
@@ -166,7 +166,7 @@ Die ersten vier priorisierten Schnittstellen aus dem Migrationsplan nach `backen
 
 ---
 
-## Übung 5: Lessons Learned
+## Übung 5: Lessons Learned (Compounding Engineering)
 
 Noch bevor der Kontext geleert wird, lohnt es sich, das Wissen aus der aktuellen Session festzuhalten: Welche Probleme sind aufgetreten? Was wurde repariert? Welche Konventionen haben sich bewährt?
 
@@ -177,12 +177,13 @@ Erkenntnisse und Bug-Fixes aus der Java-Migration dokumentieren, bevor der Konte
 ### Schritte
 
 1. **Claude befragen, was es repariert hat:**
-   - Noch vor `/clear` in den `/plan`-Modus wechseln und fragen:
-     > `Fasse zusammen, welche Probleme oder Bugs wir bei der Migration der ersten vier Schnittstellen hatten und wie du sie gelöst hast. Unterscheide zwischen allgemeinen Konventionen für CLAUDE.md und aufgabenspezifischen Fallstricken für docs/.`
+   - Noch vor `/clear` fragen:
+     > `Fasse hier im Chat zusammen, welche Probleme oder Bugs wir bei der Migration der ersten vier Schnittstellen hatten und wie du sie gelöst hast. Unterscheide zwischen allgemeinen Konventionen für CLAUDE.md und aufgabenspezifischen Fallstricken für docs/.`
 
 2. **Feedback zur Qualität und zum Vorgehen geben:**
    - Wurden deine Qualitätsansprüche erfüllt? Wenn nein, gib gezieltes Feedback.
-   - Wurde sinnvoll und nachvollziehbar gearbeitet (inkl. Test- und Doku-Updates)?
+   - Wurde sinnvoll und nachvollziehbar gearbeitet?
+   - Wurde sinnvoll committet?
    - Welche offenen Punkte müssen vor der nächsten Migrationswelle geklärt werden?
 
 3. **Entscheidung: Wohin gehört welche Erkenntnis?**
@@ -206,58 +207,148 @@ Erkenntnisse und Bug-Fixes aus der Java-Migration dokumentieren, bevor der Konte
 
 ---
 
-## Übung 6: Migrations-Skill erstellen
+## Übung 6: Skill erstellen
 
-### Ziel
+Wiederkehrende Aufgaben eignen sich hervorragend als Skills. Du musst dir dann nicht jedes Mal den Standard-Prompt überlegen – Claude folgt automatisch einem definierten Workflow. Normalerweise würden wir hier jetzt einen Skill erstellen, der den Workflow abbildet um einzelne Schnittstellen zu migrieren. Für alle weiteren Schnittstelle, die migriert werden, würde dieser Skill von Claude Code geladen und der dort beschriebenen Worklfow gefolt.
+In unserem Beispielrepo (sehr klein) hätte der Schnittstellen-Migrations-Skill keinen Mehwert über den bereits angelegt Plan. Deshalb erstellen wir uns nun einen Meta-Skill, der das Feedback (Copounding Engineering) automatisiert.
 
-Den Workflow als wiederverwendbaren Skill kapseln.
+###  `/learn`-Skill erstellen
 
-### Schritte
+#### Ziel
+
+Lessons Learned aus einer Session systematisch im Repository sichern.
+
+#### Schritte
 
 1. **Skill-Verzeichnis anlegen:**
    ```bash
-   mkdir -p .claude/skills/migrate-home-slice
+   mkdir -p .claude/skills/learn
    ```
 
 2. **`SKILL.md` erstellen (Startpunkt):**
 
    ```markdown
    ---
-   name: migrate-home-slice
-   description: Führt eine inkrementelle Home-Slice-Migration (Django + Angular) durch
+   name: learn
+   description: Sichert Lessons Learned aus der aktuellen Session in CLAUDE.md und docs/
    user-invocable: true
    allowed-tools:
-     - Bash
      - Read
      - Edit
      - Write
      - Glob
      - Grep
-   argument-hint: <new-endpoint> <new-route>
+   argument-hint: <topic>
    ---
+   # Learn from Conversation
 
-   Du hilfst mir bei einer inkrementellen Migration im andrena-ai-blog Projekt.
+   Analyze the current conversation and extract key learnings, especially regarding:
 
-   Workflow:
+   1. **Workflows**: How to accomplish tasks (e.g., creating PRs, getting ticket descriptions, running tests, deploying, debugging)
+   2. **Patterns**: Code patterns, architectural decisions, or conventions discovered
+   3. **Tools and Scripts**: Usage of helper scripts, pipeline tools, or development utilities
+   4. **Common Pitfalls**: Issues encountered and how they were resolved
+   5. **Best Practices**: Techniques that proved effective
 
-   1. Analysiere bestehende Backend- und Frontend-Flows.
-   2. Erstelle zuerst einen Plan (ohne Code).
-   3. Warte auf Bestätigung.
-   4. Implementiere neuen API-Slice + neue Route, ohne Altpfad zu brechen.
-   5. Ergänze/aktualisiere Tests.
-   6. Führe Regressionstests aus und fasse Änderungen zusammen.
+   ## Your Task
+
+   1. **Analyze project structure** first:
+      - Check if CLAUDE.md exists (read it to understand current documentation)
+      - Look for existing .llm/ directory and its contents
+      - Identify project structure (monorepo, single project, subdirectories)
+      - Find existing README files and documentation locations
+
+   2. **Review the conversation** to identify actionable learnings and workflows
+
+   3. **Determine documentation placement**:
+      - **If documentation structure is clear** (CLAUDE.md references specific files, .llm/ directory exists with organized files):
+      - Follow existing structure and naming conventions
+      - **If structure is unclear or learnings don't fit existing categories**:
+      - Use AskUserQuestion to ask the user where to document the learnings
+      - Suggest options based on the learning type:
+         - General workflows → CLAUDE.md (or create if doesn't exist)
+         - Specialized topics → .llm/[topic].md (suggest creating .llm/ directory if needed)
+         - Component-specific → Component's local README.md or CLAUDE.md
+      - Provide clear descriptions of what would go in each option
+
+   4. **Update documentation** by:
+      - Adding new sections if the workflow is entirely new
+      - Enhancing existing sections with additional details or examples
+      - Creating new referenced markdown files in .llm/ for substantial new topics
+      - Ensuring consistency with existing documentation style and structure
+
+   5. **Present changes** to the user:
+      - Summarize what learnings were captured
+      - Show which files were updated
+      - Explain the rationale for placement decisions
+
+   ## Using AskUserQuestion for Unclear Categorization
+
+   When the documentation structure is unclear or learnings don't fit existing categories, use AskUserQuestion:
+
+   **Example for multiple learning types:**
+   Question: "Where should I document these learnings?"
+   Options:
+   - "Update CLAUDE.md with general workflow" (Description: Add deployment workflow to main project documentation)
+   - "Create .llm/deployment.md for specialized topic" (Description: Create new file in .llm/ directory specifically for deployment processes)
+   - "Update backend/README.md for component-specific" (Description: Add to backend component documentation)
+
+   **Example when suggesting new structure:**
+   Question: "This project doesn't have a .llm/ directory yet. How should we organize documentation?"
+   Options:
+   - "Create .llm/ directory and organize by topic (Recommended)" (Description: Create .llm/deployment.md, .llm/testing.md, etc. Referenced from CLAUDE.md)
+   - "Add everything to CLAUDE.md" (Description: Keep all documentation in single file with sections)
+   - "Create topic-specific files in root" (Description: deployment.md, testing.md in project root)
+
+   ## Important Guidelines
+
+   - **Analyze before acting**: Always examine existing documentation structure before making changes
+   - **Ask when unclear**: Use AskUserQuestion if documentation placement is ambiguous
+   - **Suggest good structure**: Recommend creating .llm/ directory for organized, topic-based documentation
+   - **Follow existing patterns**: Maintain consistency with the project's current documentation style
+   - Focus on **reproducible workflows** and **actionable guidance**
+   - Use **concrete examples** from the conversation (commands, code snippets, file paths)
+   - Maintain the **progressive disclosure** principle (overview in CLAUDE.md, details in referenced files)
+   - Don't duplicate information—**reference existing docs** when appropriate
+   - Ensure documentation is **clear for future LLM consumption** and human developers
+
+   ## Recommended Documentation Structure
+
+   If the project lacks clear documentation organization, suggest this structure:
+
+
+   project-root/
+   ├── CLAUDE.md                    # Main documentation hub with overview and references
+   ├── README.md                    # Project description and quick start
+   └── .llm/                        # Detailed topic-specific documentation
+      ├── workflows.md             # Common development workflows
+      ├── deployment.md            # Deployment procedures
+      ├── testing.md               # Testing strategies and patterns
+      ├── troubleshooting.md       # Common issues and solutions
+      └── [topic].md               # Other specialized topics
+
+
+   **Benefits of .llm/ directory:**
+   - Keeps detailed documentation organized and separate from code
+   - Easy to reference from CLAUDE.md
+   - Progressive disclosure (CLAUDE.md → .llm/topic.md)
+   - Clear namespace for LLM-optimized documentation
+
+   Begin by reading CLAUDE.md (if it exists) and exploring the project structure to understand current documentation organization, then analyze this conversation for learnings.
+   
    ```
 
 3. **Skill testen:**
    - Beispielaufruf:
      ```
-     /migrate-home-slice /api/home /home-v2
+     /learn 
      ```
 
-### Akzeptanzkriterien
+#### Akzeptanzkriterien
 
-- `.claude/skills/migrate-home-slice/SKILL.md` existiert.
-- Skill ist aufrufbar und hält den Ablauf `Plan -> Bestätigung -> Umsetzung -> Validierung` ein.
+- `.claude/skills/learn/SKILL.md` existiert.
+- `/learn` ist im Chat aufrufbar.
+- Der Skill aktualisiert `CLAUDE.md` und eine passende docs-Datei mit konkreten Lessons Learned.
 
 ---
 
