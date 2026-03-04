@@ -73,11 +73,11 @@ Claude Code im kleinen Full-Stack-Repo initialisieren, Architektur erfassen und 
 
 ### Ziel
 
-Vor der Migration eine minimale zusätzliche Absicherung schaffen.
+Vor der Migration Test-Infrastruktur analysieren und eine (minimale) zusätzliche Absicherung schaffen.
 
 ### Schritte
 
-1. **Test-Landschaft erfassen:**
+1. **Test-Infrastruktur erfassen:**
    - Claude fragen:
      > `Welche Testarten existieren hier (Backend-Tests, Angular-Tests, API-Contract-Tests)? Welche Lücken siehst du für eine Home-Page-Migration?`
 
