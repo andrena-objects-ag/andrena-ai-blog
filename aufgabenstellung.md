@@ -193,7 +193,7 @@ Erkenntnisse und Bug-Fixes aus der Java-Migration dokumentieren, bevor der Konte
 
 1. **Claude befragen, was es repariert hat:**
    - Frage Claude:
-     > `Fasse hier im Chat zusammen, welche Probleme oder Bugs wir bei der Migration der ersten vier Schnittstellen hatten und wie du sie gelöst hast. Unterscheide zwischen allgemeinen Konventionen für CLAUDE.md und aufgabenspezifischen Fallstricken für docs/.`
+     > `Fasse hier im Chat zusammen, welche Probleme oder Bugs wir bei der Migration der ersten Schnittstellen hatten und wie du sie gelöst hast. Unterscheide zwischen allgemeinen Konventionen für CLAUDE.md und aufgabenspezifischen Fallstricken für docs/.`
 
 2. **Feedback zur Qualität und zum Vorgehen geben:**
    - Wurden deine Qualitätsansprüche erfüllt? Wenn nein, gib gezieltes Feedback.
