@@ -227,9 +227,6 @@ Erkenntnisse und Bug-Fixes aus der Java-Migration dokumentieren, bevor der Konte
 Wiederkehrende Aufgaben eignen sich hervorragend als Skills. Du musst dir dann nicht jedes Mal den Standard-Prompt überlegen – Claude folgt automatisch einem definierten Workflow. 
 
 
-Normalerweise würden wir hier jetzt einen Skill erstellen, der den Workflow abbildet um einzelne Schnittstellen zu migrieren. Für alle weiteren Schnittstelle, die migriert werden, würde dieser Skill von Claude Code geladen und der dort beschriebenen Worklfow gefolt.
-In unserem Beispielrepo (sehr klein) hätte der Schnittstellen-Migrations-Skill keinen Mehwert über den bereits angelegt Plan. Deshalb erstellen wir uns nun einen Meta-Skill, der das Feedback (Copounding Engineering) automatisiert.
-
 ###  `/learn`-Skill erstellen
 
 #### Ziel
@@ -381,23 +378,23 @@ Lessons Learned aus einer Session systematisch im Repository sichern.
 
 ## Optional Übung 7: Guardrails mit Hooks
 
-Hooks laufen deterministisch bei jedem Tool-Aufruf oder Abschluss, unabhängig vom Kontext-Zustand oder Prompt-Formulierung.
+Hooks laufen deterministisch bei jedem Tool-Aufruf oder Abschluss – unabhängig vom Kontext-Zustand oder der Prompt-Formulierung.
 
 ### Ziel
 
-Hooks konfigurieren, in Aktion erleben und verstehen, wann Hooks gegenüber Prompts die bessere Wahl sind.
+Hooks konfigurieren, in Aktion erleben und verstehen, wann Hooks gegenüber Prompt-Instruktionen die bessere Wahl sind.
 
 ### Schritte
 
-1. **Beratung:** 
-   - Überlege zusammen mit Claude, welche Hooks für die Migration sinnvoll sein könnten. Beispiele:
-      - dont touch pyton guard
-      - ArchUnit Pakcage Dependency Rules
-         - This prevents the agent from accidentally creating cross-feature coupling during migration.
-      - Java compile only if backend_java/ changed: ./gradlew compileJava --quiet
-      - If Java controllers/services/entities changed, run Playwright API specs from frontend/
+1. **Beratung:**
+   - Überlege zusammen mit Claude, welche Hooks für die Migration sinnvoll sein könnten. Mögliche Ideen:
+      - **„Don't touch Python"-Guard:** Verhindert versehentliche Änderungen am alten Python-Backend während der Migration.
+      - **ArchUnit-Package-Dependency-Rules:** Stellt sicher, dass der Agent keine ungewollten Cross-Feature-Abhängigkeiten einführt.
+      - **Java-Compile-Check:** Automatisch Compile-Check ausführen, wenn sich Dateien in `backend_java/` ändern.
+      - **Playwright-API-Tests:** Automatisch die API-Specs aus `frontend/` ausführen, wenn Java-Controller, -Services oder -Entities geändert werden.
+
 2. **Hook anlegen:**
-   - Erstelle einen Hook zusammen mit Claude
+   - Erstelle einen Hook zusammen mit Claude.
    - Achte darauf, dass er in `.claude/settings.json` im Projekt-Repo konfiguriert wird, damit er versioniert und geteilt werden kann.
 
 3. **Hook testen:**
@@ -405,12 +402,12 @@ Hooks konfigurieren, in Aktion erleben und verstehen, wann Hooks gegenüber Prom
    - Verändere eine Datei, die nicht überwacht wird, und beobachte, dass der Hook nicht ausgeführt wird.
 
 4. **Bonus – `/hooks`-Befehl erkunden:**
-   - Gib im Claude-Chat `/hooks` ein und schau, welche Hooks aktiv sind. Claude zeigt die registrierten Hooks und ihren Matching-Zustand an
+   - Gib im Claude-Chat `/hooks` ein und schau, welche Hooks aktiv sind. Claude zeigt die registrierten Hooks und ihren Matching-Zustand an.
 
 ### Akzeptanzkriterien
 
 - Mindestens ein Hook wurde angelegt und läuft zuverlässig bei jeder relevanten Änderung.
-- Du kannst erklären, warum Hooks in bestimmten Situationen zuverlässiger sind als Prompt-Instruktionen
+- Du kannst erklären, warum Hooks in bestimmten Situationen zuverlässiger sind als Prompt-Instruktionen.
 - Die Hooks sind in `.claude/settings.json` im Projekt-Repo konfiguriert (nicht global in `~/.claude/settings.json`) und könnten committed werden.
 
 ---
@@ -476,7 +473,7 @@ Verstehen, dass Worktrees kein Agent-Feature sind, sondern ein Git-Grundbaustein
 
 ## Übung 9: Restliches Python Backend parallel migrieren (Subagents & Worktrees)
 
-Nach der Teilmigration der ersten vier Schnittstellen kann der restliche Scope parallelisiert werden: Mehrere Subagents arbeiten gleichzeitig in isolierten Worktrees und migrieren jeweils einen Teilbereich.
+Nach der Teilmigration der ersten Schnittstellen kann der restliche Scope parallelisiert werden: Mehrere Subagents arbeiten gleichzeitig in isolierten Worktrees und migrieren jeweils einen Teilbereich.
 
 ### Ziel
 
@@ -488,37 +485,27 @@ Alle verbleibenden Controller bzw. API-Schnittstellen parallel nach `backend_jav
    - Starte mit frischem Kontext (`/clear`) und gib Claude folgenden Auftrag:
      > `Migriere alle verbleibenden Controller/Schnittstellen parallel nach backend_java. Starte für jeden Migrationsblock einen eigenen Subagent in einem isolierten Worktree. Verwende den zuvor angelegten Migrations-Plan.`
 
-2. **Planungsphase reviewen:**
-   - Claude erstellt einen Parallelisierungsplan mit Arbeitspaketen.
-   - Prüfe, ob die Aufteilung sinnvoll ist und ob Abhängigkeiten zwischen Endpunkten berücksichtigt sind.
-   - Gib erst dann die Freigabe.
-
-3. **Subagents parallel ausführen lassen:**
+2. **Subagents parallel ausführen lassen:**
    - Nach Freigabe startet Claude die Subagents in getrennten Worktrees.
    - Jeder Subagent migriert sein Paket nach `backend_java` und führt die passenden Tests im eigenen Worktree aus.
 
-4. **Ergebnisse prüfen und zusammenführen:**
-   - Reviewe die von den Subagents erzeugten Branches.
-   - Führe die Ergebnisse kontrolliert zusammen.
-   - Bei Konflikten: Claude soll Konflikte analysieren und auflösen.
-
-5. **Vollständige Verifikation ausführen:**
+3. **Vollständige Verifikation ausführen:**
    - Starte nach dem Zusammenführen alle relevanten Tests.
    - Führe die Playwright-API-Tests gemäß `README` aus.
    - Prüfe stichprobenartig im Frontend die weiterhin korrekte Darstellung (inkl. Profilbilder).
 
-6. **Ergebnisse dokumentieren:**
-   - Lasse Claude eine kurze Zusammenfassung erstellen:
-     - Was wurde parallel migriert?
-     - Welche Risiken sind offen?
-     - Welche nächsten Schritte folgen?
+4. **Ergebnisse evaluieren:**
+   - Vergleiche altes und neues Backend hinsichtlich Lines of Code (LOC) und Dateianzahl mit [tokei](https://github.com/XAMPPRocky/tokei):
+     ```bash
+     tokei backend/ backend_java/
+     ```
+   - tokei zeigt eine übersichtliche Aufschlüsselung nach Sprache, Dateien, Code-Zeilen, Kommentaren und Leerzeilen – so lässt sich schnell einschätzen, ob die Migration vollständig ist und wie sich der Codeumfang verändert hat.
 
 ### Akzeptanzkriterien
 
 1. Alle verbleibenden Controller/Schnittstellen sind in `backend_java` migriert.
 2. Die parallele Umsetzung lief in getrennten Worktrees ohne gegenseitige Blockade.
 3. Relevante Tests inkl. Playwright-API-Tests sind grün.
-4. Offene Risiken und nächste Schritte sind dokumentiert.
 
 
 ---
