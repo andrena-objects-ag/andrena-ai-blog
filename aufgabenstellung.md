@@ -381,20 +381,37 @@ Lessons Learned aus einer Session systematisch im Repository sichern.
 
 ## Optional Übung 7: Guardrails mit Hooks
 
-WIP
+Hooks laufen deterministisch bei jedem Tool-Aufruf oder Abschluss, unabhängig vom Kontext-Zustand oder Prompt-Formulierung.
 
 ### Ziel
 
-Wichtige Regeln technisch absichern (nicht nur als Prompt).
+Hooks konfigurieren, in Aktion erleben und verstehen, wann Hooks gegenüber Prompts die bessere Wahl sind.
 
-### Vorschlag
+### Schritte
 
-1. **Stop-Hook:** führt einmal pro Turn Tests aus, wenn bestimmte Dateien geändert wurden.
-   - welche test? archunit-Tests? 
+1. **Beratung:** 
+   - Überlege zusammen mit Claude, welche Hooks für die Migration sinnvoll sein könnten. Beispiele:
+      - dont touch pyton guard
+      - ArchUnit Pakcage Dependency Rules
+         - This prevents the agent from accidentally creating cross-feature coupling during migration.
+      - Java compile only if backend_java/ changed: ./gradlew compileJava --quiet
+      - If Java controllers/services/entities changed, run Playwright API specs from frontend/
+2. **Hook anlegen:**
+   - Erstelle einen Hook zusammen mit Claude
+   - Achte darauf, dass er in `.claude/settings.json` im Projekt-Repo konfiguriert wird, damit er versioniert und geteilt werden kann.
+
+3. **Hook testen:**
+   - Verändere eine Datei, die der Hook überwacht, und beobachte, dass der Hook zuverlässig ausgeführt wird.
+   - Verändere eine Datei, die nicht überwacht wird, und beobachte, dass der Hook nicht ausgeführt wird.
+
+4. **Bonus – `/hooks`-Befehl erkunden:**
+   - Gib im Claude-Chat `/hooks` ein und schau, welche Hooks aktiv sind. Claude zeigt die registrierten Hooks und ihren Matching-Zustand an
 
 ### Akzeptanzkriterien
 
-- ...
+- Mindestens ein Hook wurde angelegt und läuft zuverlässig bei jeder relevanten Änderung.
+- Du kannst erklären, warum Hooks in bestimmten Situationen zuverlässiger sind als Prompt-Instruktionen
+- Die Hooks sind in `.claude/settings.json` im Projekt-Repo konfiguriert (nicht global in `~/.claude/settings.json`) und könnten committed werden.
 
 ---
 
