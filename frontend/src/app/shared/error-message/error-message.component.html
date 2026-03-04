@@ -1,0 +1,7 @@
+@if (messages().length > 0) {
+  <ul class="error-messages">
+    @for (message of messages(); track message + $index) {
+      <li>{{ message }}</li>
+    }
+  </ul>
+}

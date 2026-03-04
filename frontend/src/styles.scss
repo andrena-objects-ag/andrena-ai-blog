@@ -1,0 +1,994 @@
+/* andrena objects style theme for Conduit */
+
+// Import Ionicon icons
+@import url('//code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css');
+
+// Import Inter font (clean sans-serif matching andrena aesthetic)
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+// ============================================================
+// VARIABLES — andrena.de color palette
+// ============================================================
+$primary-blue: #0046A3;
+$primary-blue-dark: #003580;
+$primary-blue-light: #1a6fd4;
+$bg-gray: #F5F5F5;
+$text-dark: #1A1A1A;
+$text-muted: #6c757d;
+$border-gray: #E0E0E0;
+$white: #FFFFFF;
+$danger: #dc3545;
+$success: #28a745;
+
+// ============================================================
+// RESET & BASE
+// ============================================================
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.6;
+  color: $text-dark;
+  background-color: $bg-gray;
+  width: 100%;
+  overflow-x: hidden;
+  margin: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+img {
+  max-width: 100%;
+}
+
+a {
+  color: $primary-blue;
+  text-decoration: none;
+  transition: color 0.2s ease;
+
+  &:hover {
+    color: $primary-blue-dark;
+    text-decoration: none;
+  }
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 600;
+  color: $text-dark;
+  margin-top: 0;
+}
+
+// ============================================================
+// BOOTSTRAP GRID (minimal subset)
+// ============================================================
+.container {
+  width: 100%;
+  max-width: 1140px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  margin-left: -15px;
+  margin-right: -15px;
+}
+
+[class*="col-"] {
+  position: relative;
+  width: 100%;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+.col-xs-12 { flex: 0 0 100%; max-width: 100%; }
+
+@media (min-width: 768px) {
+  .col-md-3 { flex: 0 0 25%; max-width: 25%; }
+  .col-md-6 { flex: 0 0 50%; max-width: 50%; }
+  .col-md-8 { flex: 0 0 66.6667%; max-width: 66.6667%; }
+  .col-md-9 { flex: 0 0 75%; max-width: 75%; }
+  .col-md-10 { flex: 0 0 83.3333%; max-width: 83.3333%; }
+  .col-md-12 { flex: 0 0 100%; max-width: 100%; }
+  .offset-md-1 { margin-left: 8.3333%; }
+  .offset-md-2 { margin-left: 16.6667%; }
+  .offset-md-3 { margin-left: 25%; }
+}
+
+// ============================================================
+// NAVBAR
+// ============================================================
+.navbar {
+  display: flex;
+  align-items: center;
+  background-color: $white;
+  border-bottom: 2px solid $border-gray;
+  padding: 0;
+  min-height: 64px;
+
+  .container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+}
+
+.navbar-brand {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: $primary-blue !important;
+  letter-spacing: -0.5px;
+  text-decoration: none;
+  padding: 12px 0;
+
+  &:hover {
+    color: $primary-blue-dark !important;
+  }
+}
+
+.navbar-nav {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  gap: 4px;
+}
+
+.nav-item {
+  list-style: none;
+}
+
+.nav-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 8px 16px;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  color: $text-muted;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+  text-decoration: none;
+  white-space: nowrap;
+
+  &:hover {
+    color: $primary-blue;
+    background-color: rgba($primary-blue, 0.06);
+  }
+
+  &.active {
+    color: $primary-blue;
+    background-color: rgba($primary-blue, 0.1);
+  }
+
+  i {
+    font-size: 1rem;
+  }
+}
+
+.user-pic {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  margin-right: 6px;
+  object-fit: cover;
+}
+
+.pull-xs-right {
+  float: right;
+}
+
+// ============================================================
+// BUTTONS
+// ============================================================
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+  font-size: 0.9375rem;
+  padding: 10px 24px;
+  border: 2px solid transparent;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-decoration: none;
+  line-height: 1.4;
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  i {
+    font-size: 0.875rem;
+  }
+}
+
+.btn-lg {
+  padding: 14px 32px;
+  font-size: 1.0625rem;
+}
+
+.btn-sm {
+  padding: 6px 14px;
+  font-size: 0.8125rem;
+}
+
+.btn-primary {
+  background-color: $primary-blue;
+  border-color: $primary-blue;
+  color: $white;
+
+  &:hover:not(:disabled) {
+    background-color: $primary-blue-dark;
+    border-color: $primary-blue-dark;
+    box-shadow: 0 0 0 3px rgba($primary-blue, 0.25);
+  }
+}
+
+.btn-outline-primary {
+  background-color: transparent;
+  border-color: $primary-blue;
+  color: $primary-blue;
+
+  &:hover:not(:disabled) {
+    background-color: $primary-blue;
+    color: $white;
+    box-shadow: 0 0 0 3px rgba($primary-blue, 0.25);
+  }
+}
+
+.btn-outline-secondary {
+  background-color: transparent;
+  border-color: $border-gray;
+  color: $text-muted;
+
+  &:hover:not(:disabled) {
+    border-color: $primary-blue;
+    color: $primary-blue;
+    box-shadow: 0 0 0 3px rgba($primary-blue, 0.15);
+  }
+}
+
+.btn-secondary {
+  background-color: $text-muted;
+  border-color: $text-muted;
+  color: $white;
+
+  &:hover:not(:disabled) {
+    background-color: darken($text-muted, 10%);
+    border-color: darken($text-muted, 10%);
+  }
+}
+
+.btn-outline-danger {
+  background-color: transparent;
+  border-color: $danger;
+  color: $danger;
+
+  &:hover:not(:disabled) {
+    background-color: $danger;
+    color: $white;
+    box-shadow: 0 0 0 3px rgba($danger, 0.25);
+  }
+}
+
+// ============================================================
+// FORMS
+// ============================================================
+.form-control {
+  display: block;
+  width: 100%;
+  padding: 12px 16px;
+  font-family: 'Inter', sans-serif;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: $text-dark;
+  background-color: $white;
+  border: 2px solid $border-gray;
+  border-radius: 8px;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  appearance: none;
+
+  &::placeholder {
+    color: #adb5bd;
+  }
+
+  &:focus {
+    border-color: $primary-blue;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba($primary-blue, 0.15);
+  }
+}
+
+.form-control-lg {
+  padding: 14px 18px;
+  font-size: 1.0625rem;
+}
+
+.form-group,
+fieldset.form-group {
+  margin-bottom: 20px;
+  border: none;
+  padding: 0;
+  min-width: 0;
+}
+
+fieldset {
+  border: none;
+  padding: 0;
+  margin: 0;
+  min-width: 0;
+}
+
+textarea.form-control {
+  resize: vertical;
+  min-height: 120px;
+}
+
+// ============================================================
+// CARDS
+// ============================================================
+.card {
+  background-color: $white;
+  border: 1px solid $border-gray;
+  border-radius: 10px;
+  margin-bottom: 16px;
+  overflow: hidden;
+}
+
+.card-block {
+  padding: 20px;
+}
+
+.card-footer {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 20px;
+  background-color: $bg-gray;
+  border-top: 1px solid $border-gray;
+}
+
+.card-text {
+  margin: 0;
+  line-height: 1.6;
+}
+
+// ============================================================
+// BANNER (Home / Article page hero)
+// ============================================================
+.banner {
+  background: linear-gradient(135deg, $primary-blue 0%, $primary-blue-dark 100%);
+  color: $white;
+  padding: 40px 0;
+  margin-bottom: 32px;
+
+  h1 {
+    color: $white;
+    font-size: 2.5rem;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    margin-bottom: 8px;
+  }
+
+  p {
+    color: rgba($white, 0.85);
+    font-size: 1.125rem;
+    font-weight: 300;
+    margin-bottom: 0;
+  }
+}
+
+.home-page .banner {
+  text-align: center;
+  padding: 56px 0;
+  position: relative;
+  overflow: hidden;
+
+  // Geometric triangle decoration (andrena-style)
+  &::before {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 100%;
+    height: 40px;
+    background: linear-gradient(to right bottom, transparent 49.5%, $bg-gray 50%);
+  }
+
+  h1 {
+    font-size: 3rem;
+    margin-bottom: 12px;
+  }
+
+  p {
+    font-size: 1.25rem;
+  }
+}
+
+.article-page .banner {
+  padding: 48px 0;
+
+  h1 {
+    font-size: 2.25rem;
+    line-height: 1.3;
+    margin-bottom: 16px;
+  }
+}
+
+// ============================================================
+// PAGE LAYOUT
+// ============================================================
+.page {
+  padding-top: 24px;
+  padding-bottom: 48px;
+}
+
+// ============================================================
+// ARTICLE PREVIEW (Feed items)
+// ============================================================
+.article-preview {
+  background-color: $white;
+  border: 1px solid $border-gray;
+  border-radius: 10px;
+  padding: 24px;
+  margin-bottom: 16px;
+  transition: box-shadow 0.2s ease, transform 0.15s ease;
+
+  &:hover {
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+    transform: translateY(-1px);
+  }
+
+  .article-meta {
+    display: flex;
+    align-items: center;
+    margin-bottom: 12px;
+  }
+
+  .preview-link {
+    display: block;
+    color: $text-dark;
+    text-decoration: none;
+
+    h1 {
+      font-size: 1.375rem;
+      font-weight: 600;
+      margin-bottom: 6px;
+      color: $text-dark;
+      line-height: 1.35;
+    }
+
+    p {
+      color: $text-muted;
+      font-size: 0.9375rem;
+      font-weight: 300;
+      margin-bottom: 12px;
+      line-height: 1.5;
+    }
+
+    span {
+      color: $primary-blue;
+      font-size: 0.8125rem;
+      font-weight: 500;
+    }
+
+    &:hover h1 {
+      color: $primary-blue;
+    }
+  }
+}
+
+// ============================================================
+// ARTICLE META (Author, date, action buttons)
+// ============================================================
+.article-meta {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+
+  img {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+
+  .info {
+    display: flex;
+    flex-direction: column;
+    margin-right: 16px;
+    line-height: 1.3;
+  }
+
+  .author {
+    font-weight: 600;
+    font-size: 0.9375rem;
+    color: $primary-blue;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  .date {
+    font-size: 0.8125rem;
+    color: $text-muted;
+    font-weight: 300;
+  }
+}
+
+.article-actions {
+  text-align: center;
+  margin: 32px 0;
+}
+
+// ============================================================
+// ARTICLE CONTENT
+// ============================================================
+.article-content {
+  background-color: $white;
+  border-radius: 10px;
+  padding: 32px;
+  margin-bottom: 24px;
+
+  p {
+    line-height: 1.8;
+    margin-bottom: 16px;
+  }
+}
+
+// ============================================================
+// TAGS
+// ============================================================
+.tag-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  list-style: none;
+  padding: 0;
+  margin: 8px 0 0;
+}
+
+.tag-default {
+  display: inline-block;
+  padding: 4px 12px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  border-radius: 20px;
+  transition: all 0.2s ease;
+}
+
+.tag-pill {
+  border-radius: 20px;
+}
+
+.tag-outline {
+  border: 1px solid $border-gray;
+  color: $text-muted;
+  background: transparent;
+
+  &:hover {
+    border-color: $primary-blue;
+    color: $primary-blue;
+  }
+}
+
+// Sidebar tags (clickable)
+.sidebar {
+  background-color: $white;
+  border-radius: 10px;
+  padding: 20px;
+  border: 1px solid $border-gray;
+
+  p {
+    font-weight: 600;
+    font-size: 0.9375rem;
+    margin-bottom: 12px;
+    color: $text-dark;
+  }
+
+  .tag-default {
+    cursor: pointer;
+    background-color: $primary-blue;
+    color: $white;
+    border: none;
+    padding: 6px 14px;
+
+    &:hover {
+      background-color: $primary-blue-dark;
+      box-shadow: 0 0 0 3px rgba($primary-blue, 0.2);
+    }
+  }
+}
+
+// ============================================================
+// FEED TOGGLE (Tab navigation)
+// ============================================================
+.feed-toggle {
+  margin-bottom: 20px;
+  border-bottom: 2px solid $border-gray;
+
+  .nav {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    gap: 0;
+  }
+
+  .nav-link {
+    display: block;
+    padding: 12px 20px;
+    font-size: 0.9375rem;
+    font-weight: 500;
+    color: $text-muted;
+    border: none;
+    border-bottom: 2px solid transparent;
+    margin-bottom: -2px;
+    background: none;
+    border-radius: 0;
+    cursor: pointer;
+    transition: all 0.2s ease;
+
+    &:hover {
+      color: $primary-blue;
+      background: none;
+    }
+
+    &.active {
+      color: $primary-blue;
+      border-bottom-color: $primary-blue;
+      background: none;
+    }
+  }
+}
+
+// Same style for profile articles toggle
+.articles-toggle {
+  margin-bottom: 20px;
+  border-bottom: 2px solid $border-gray;
+
+  .nav {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .nav-link {
+    display: block;
+    padding: 12px 20px;
+    font-size: 0.9375rem;
+    font-weight: 500;
+    color: $text-muted;
+    border: none;
+    border-bottom: 2px solid transparent;
+    margin-bottom: -2px;
+    background: none;
+    border-radius: 0;
+    cursor: pointer;
+    transition: all 0.2s ease;
+
+    &:hover {
+      color: $primary-blue;
+      background: none;
+    }
+
+    &.active {
+      color: $primary-blue;
+      border-bottom-color: $primary-blue;
+      background: none;
+    }
+  }
+}
+
+// ============================================================
+// PAGINATION
+// ============================================================
+.pagination {
+  display: flex;
+  list-style: none;
+  padding: 0;
+  margin: 24px 0;
+  gap: 4px;
+}
+
+.page-item {
+  list-style: none;
+
+  .page-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 40px;
+    height: 40px;
+    padding: 4px 12px;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: $primary-blue;
+    background-color: $white;
+    border: 2px solid $border-gray;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-decoration: none;
+
+    &:hover {
+      border-color: $primary-blue;
+      background-color: rgba($primary-blue, 0.06);
+    }
+  }
+
+  &.active .page-link {
+    background-color: $primary-blue;
+    border-color: $primary-blue;
+    color: $white;
+  }
+}
+
+// ============================================================
+// AUTH PAGES (Login, Register)
+// ============================================================
+.auth-page {
+  .page {
+    padding-top: 48px;
+    padding-bottom: 64px;
+  }
+
+  h1 {
+    font-size: 2rem;
+    font-weight: 700;
+    color: $primary-blue;
+    margin-bottom: 12px;
+  }
+
+  p {
+    margin-bottom: 24px;
+
+    a {
+      font-weight: 500;
+    }
+  }
+}
+
+.text-xs-center {
+  text-align: center;
+}
+
+// ============================================================
+// EDITOR PAGE
+// ============================================================
+.editor-page {
+  h1 {
+    font-size: 1.75rem;
+    color: $primary-blue;
+    margin-bottom: 24px;
+  }
+
+  .tag-list {
+    margin-top: 12px;
+  }
+
+  .tag-default.tag-pill {
+    background-color: $primary-blue;
+    color: $white;
+    border: none;
+    padding: 6px 14px;
+
+    i {
+      cursor: pointer;
+      margin-right: 4px;
+      opacity: 0.8;
+
+      &:hover {
+        opacity: 1;
+      }
+    }
+  }
+}
+
+// ============================================================
+// SETTINGS PAGE
+// ============================================================
+.settings-page {
+  h1 {
+    font-size: 1.75rem;
+    color: $primary-blue;
+    margin-bottom: 24px;
+  }
+}
+
+// ============================================================
+// PROFILE PAGE
+// ============================================================
+.profile-page {
+  .user-info {
+    background-color: $white;
+    border-bottom: 1px solid $border-gray;
+    padding: 40px 0;
+    text-align: center;
+    margin-bottom: 24px;
+  }
+
+  .user-img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 16px;
+    border: 3px solid $border-gray;
+  }
+
+  h4 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+
+  .action-btn {
+    margin-top: 16px;
+  }
+}
+
+// ============================================================
+// COMMENTS
+// ============================================================
+.comment-form {
+  .card-block {
+    padding: 16px;
+  }
+
+  .card-footer {
+    padding: 12px 16px;
+  }
+}
+
+.comment-author-img {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.comment-author {
+  font-weight: 600;
+  font-size: 0.875rem;
+  color: $primary-blue;
+}
+
+.date-posted {
+  font-size: 0.75rem;
+  color: $text-muted;
+  margin-left: auto;
+}
+
+.mod-options {
+  margin-left: 12px;
+
+  i {
+    cursor: pointer;
+    color: $text-muted;
+    transition: color 0.2s ease;
+
+    &:hover {
+      color: $danger;
+    }
+  }
+}
+
+// ============================================================
+// FOOTER
+// ============================================================
+footer {
+  background: linear-gradient(135deg, $primary-blue 0%, $primary-blue-dark 100%);
+  color: rgba($white, 0.9);
+  padding: 40px 0;
+  margin-top: 48px;
+  position: relative;
+
+  // Geometric triangle decoration (andrena-style)
+  &::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: 0;
+    width: 100%;
+    height: 40px;
+    background: linear-gradient(to left top, transparent 49.5%, $bg-gray 50%);
+  }
+
+  .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    text-align: center;
+  }
+
+  .logo-font {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: $white;
+    text-decoration: none;
+    letter-spacing: -0.5px;
+  }
+
+  .attribution {
+    font-size: 0.8125rem;
+    font-weight: 300;
+    color: rgba($white, 0.7);
+    line-height: 1.5;
+
+    a {
+      color: $white;
+      text-decoration: underline;
+      text-underline-offset: 2px;
+
+      &:hover {
+        opacity: 0.9;
+      }
+    }
+  }
+}
+
+// ============================================================
+// SUCCESS & ERROR MESSAGES
+// ============================================================
+.error-messages,
+ul.error-messages {
+  list-style: none;
+  padding: 12px 20px;
+  margin-bottom: 16px;
+  background-color: #fef2f2;
+  border: 1px solid #fecaca;
+  border-radius: 8px;
+  color: $danger;
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.success-messages {
+  list-style: none;
+  padding: 12px 20px;
+  margin-bottom: 16px;
+  background-color: #f0fdf4;
+  border: 1px solid #bbf7d0;
+  border-radius: 8px;
+  color: $success;
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+// ============================================================
+// HR
+// ============================================================
+hr {
+  border: none;
+  border-top: 1px solid $border-gray;
+  margin: 24px 0;
+}
+
+// ============================================================
+// UTILITIES
+// ============================================================
+.text-xs-center {
+  text-align: center;
+}
+
+.counter {
+  font-weight: 400;
+}
