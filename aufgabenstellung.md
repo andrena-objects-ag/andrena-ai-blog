@@ -150,11 +150,11 @@ Die ersten priorisierten Schnittstellen aus dem Migrationsplan werden nach `back
 
 1. **Commite offene Änderungen:**
    - Falls noch nicht geschehen, commmite alle offenen Änderungen, oder lass Claude commiten.
+   - Leere den Kontext `/clear`.
 
 2. **Plan bestätigen und Scope begrenzen:**
-   - Bestätige den Plan aus Übung 3.
-   - Setze einen klaren Fokus, z.B.:
-     > `Setze aus dem Plan nur die ersten zwei Steps um, d.h. User&Auth sowie Profiles. Aktualisiere den Fortschritt im Plan.`
+   - Bestätige den Plan aus Übung 3, setze einen klaren Fokus, z.B.:
+     > `Setze aus dem Migrationsplan @migration-plan.md nur die ersten zwei Steps um, d.h. User&Auth sowie Profiles. Aktualisiere den Fortschritt im Plan.`
 
 3. **Implementierung der ersten Schnittstellen:**
    - Achte daruf, das Claude nur die geforderten Schnittstellen umsetzt und nicht zu viel Scope auf einmal angeht.
