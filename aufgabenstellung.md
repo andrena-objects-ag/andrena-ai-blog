@@ -286,16 +286,23 @@ Lessons Learned aus einer Session systematisch im Repository sichern.
          - Component-specific → Component's local README.md or CLAUDE.md
       - Provide clear descriptions of what would go in each option
 
-   4. **Update documentation** by:
-      - Adding new sections if the workflow is entirely new
-      - Enhancing existing sections with additional details or examples
-      - Creating new referenced markdown files in .llm/ for substantial new topics
-      - Ensuring consistency with existing documentation style and structure
+   4. **Present proposed changes and ask for confirmation** before writing anything:
+       - Summarize what learnings were captured
+       - List which files would be created or modified
+       - Show what content would be added or changed in each file
+       - Explain the rationale for placement decisions
+       - **Ask the user explicitly**: "Sollen diese Änderungen geschrieben werden?" (Use AskUserQuestion)
+       - **Do NOT create or modify any files until the user confirms**
 
-   5. **Present changes** to the user:
-      - Summarize what learnings were captured
-      - Show which files were updated
-      - Explain the rationale for placement decisions
+   5. **Update documentation** (only after user confirmation) by:
+       - Adding new sections if the workflow is entirely new
+       - Enhancing existing sections with additional details or examples
+       - Creating new referenced markdown files in .llm/ for substantial new topics
+       - Ensuring consistency with existing documentation style and structure
+
+   6. **Confirm completion** to the user:
+       - Show which files were actually updated
+       - Briefly summarize the changes made
 
    ## Using AskUserQuestion for Unclear Categorization
 
