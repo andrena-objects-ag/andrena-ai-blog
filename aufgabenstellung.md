@@ -494,8 +494,12 @@ Alle verbleibenden Controller bzw. API-Schnittstellen parallel nach `backend_jav
 3. **Subagents parallel ausführen lassen:**
    - Nach Freigabe startet Claude die Subagents in getrennten Worktrees.
    - Jeder Subagent migriert sein Paket nach `backend_java` und führt die passenden Tests im eigenen Worktree aus.
+   - Beobachte in der IDE die angelegte Worktrees
+   - Falls Claude über Auth-Probleme stolpert, frage nach ob das am lazy loading liegt.
 
 4. **Vollständige Verifikation ausführen:**
+   - Wurden alle temporären Worktrees wieder entfernt?
+   - Wurde der Migrationsplan aktualisiert?
    - Starte nach dem Zusammenführen alle relevanten Tests.
    - Führe die Playwright-API-Tests gemäß `README` aus.
    - Prüfe stichprobenartig im Frontend die weiterhin korrekte Darstellung (inkl. Profilbilder).
