@@ -482,7 +482,7 @@ Alle verbleibenden Controller bzw. API-Schnittstellen parallel nach `backend_jav
 
 1. **Prompt für parallele Migration formulieren:**
    - Starte mit frischem Kontext (`/clear`) und gib Claude folgenden Auftrag:
-     > `Migriere alle verbleibenden Modul parallel nach backend_java. Starte für jeden Migrationsblock einen eigenen Subagent in einem isolierten Worktree. Verwende den zuvor angelegten Migrations-Plan.`
+     > `Migriere alle verbleibenden Module parallel nach backend_java. Starte für jeden Migrationsblock einen eigenen Subagent in einem isolierten Worktree. Verwende den zuvor angelegten Migrations-Plan in migration-plan.md.`
 
 2. **Subagents parallel ausführen lassen:**
    - Nach Freigabe startet Claude die Subagents in getrennten Worktrees.
