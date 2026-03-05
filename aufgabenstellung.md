@@ -480,20 +480,27 @@ Alle verbleibenden Controller bzw. API-Schnittstellen parallel nach `backend_jav
 
 ### Schritte
 
-1. **Prompt für parallele Migration formulieren:**
-   - Starte mit frischem Kontext (`/clear`) und gib Claude folgenden Auftrag:
-     > `Migriere alle verbleibenden Module parallel nach backend_java. Starte für jeden Migrationsblock einen eigenen Subagent in einem isolierten Worktree. Verwende den zuvor angelegten Migrations-Plan in migration-plan.md.`
+1. **Claude Code Bug Workaround:**
+   - Aktuell gibt es einen [bekannten Bug](https://github.com/anthropics/claude-code/issues/27134), dass automatisch erstellte Worktrees von `origin/master` statt `HEAD` ausgecheckt werden. Die Subagents sind dadurch nicht auf dem aktuellen Stand.
+   - Um den Bug zu umgehen entferne origin:
+       ```bash
+       git remote remove origin
+       ```
 
-2. **Subagents parallel ausführen lassen:**
+2. **Prompt für parallele Migration formulieren:**
+   - Starte mit frischem Kontext (`/clear`) und gib Claude folgenden Auftrag:
+     > `Migriere alle verbleibenden Backend Module parallel nach backend_java. Starte für jeden Migrationsblock einen eigenen Subagent in einem isolierten Worktree. Verwende den zuvor angelegten Migrations-Plan in migration-plan.md`
+
+3. **Subagents parallel ausführen lassen:**
    - Nach Freigabe startet Claude die Subagents in getrennten Worktrees.
    - Jeder Subagent migriert sein Paket nach `backend_java` und führt die passenden Tests im eigenen Worktree aus.
 
-3. **Vollständige Verifikation ausführen:**
+4. **Vollständige Verifikation ausführen:**
    - Starte nach dem Zusammenführen alle relevanten Tests.
    - Führe die Playwright-API-Tests gemäß `README` aus.
    - Prüfe stichprobenartig im Frontend die weiterhin korrekte Darstellung (inkl. Profilbilder).
 
-4. **Ergebnisse evaluieren:**
+5. **Ergebnisse evaluieren:**
    - Vergleiche altes und neues Backend hinsichtlich Lines of Code (LOC) und Dateianzahl mit [tokei](https://github.com/XAMPPRocky/tokei):
      ```bash
      tokei backend/ backend_java/
