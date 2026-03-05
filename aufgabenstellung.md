@@ -422,12 +422,11 @@ Verstehen, dass Worktrees kein Agent-Feature sind, sondern ein Git-Grundbaustein
 
 1. **Worktree anlegen:**
 
-   - Navigiere im Terminal in das Termini-Verzeichnis und erstelle einen neuen Worktree:
+   - Navigiere im Terminal in das Projekt-Verzeichnis und erstelle einen neuen Worktree:
      ```bash
-     cd termini
-     git worktree add ../termini-feature-a -b feature-a
+     git worktree add ../andrena-ai-blog-feature-a -b feature-a
      ```
-   - Damit entsteht ein neues Verzeichnis `termini-feature-a` neben deinem Hauptverzeichnis, mit einem eigenen Branch `feature-a`.
+   - Damit entsteht ein neues Verzeichnis `andrena-ai-blog-feature-a` neben deinem Hauptverzeichnis, mit einem eigenen Branch `feature-a`.
 
 2. **Worktrees auflisten:**
 
@@ -435,12 +434,12 @@ Verstehen, dass Worktrees kein Agent-Feature sind, sondern ein Git-Grundbaustein
    git worktree list
    ```
 
-   → Du siehst zwei Einträge: den Hauptworktree (`termini`) und den neuen (`termini-feature-a`) mit Branch `feature-a`.
+   → Du siehst zwei Einträge: den Hauptworktree (`andrena-ai-blog`) und den neuen (`andrena-ai-blog-feature-a`) mit Branch `feature-a`.
 
 3. **Worktree inspizieren:**
 
    ```bash
-   ls ../termini-feature-a
+   ls ../andrena-ai-blog-feature-a
    ```
 
    → Identischer Dateibaum wie im Hauptverzeichnis, aber eigener Branch. Änderungen hier berühren den Hauptworktree nicht.
@@ -448,7 +447,7 @@ Verstehen, dass Worktrees kein Agent-Feature sind, sondern ein Git-Grundbaustein
 4. **Worktree wieder entfernen:**
 
    ```bash
-   git worktree remove ../termini-feature-a
+   git worktree remove ../andrena-ai-blog-feature-a
    ```
 
 5. **Ergebnis prüfen:**
